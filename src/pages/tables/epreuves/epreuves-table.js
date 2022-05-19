@@ -11,6 +11,7 @@ import { myAxios } from '../../../utils/axios';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { setError } from '../../../utils/help-api';
+import EpreuveForm from '../../../components/forms/epreuve-form';
 
 const EpreuvesTable = () => {
   const dispatch = useDispatch();
@@ -215,6 +216,11 @@ const EpreuvesTable = () => {
           options={options}
         />
       )}
+      <EpreuveForm
+        show={show}
+        handleClose={handleClose}
+        setRefresh={setRefresh}
+      />
     </DashboardLayout>
   );
 };
