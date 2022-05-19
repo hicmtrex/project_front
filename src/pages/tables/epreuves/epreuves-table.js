@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import MUIDataTable from 'mui-datatables';
 import Loader from '../../../components/UI/loader';
 import { getEpreuvesList } from '../../../store/epreuves/list-slice';
-import { Button } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { myAxios } from '../../../utils/axios';
@@ -16,6 +16,10 @@ const EpreuvesTable = () => {
   const dispatch = useDispatch();
   const { epreuves, loading } = useSelector((state) => state.epreuvesList);
   const [refresh, setRefresh] = useState(false);
+  const [show, setShow] = useState(false);
+
+  const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false);
 
   const onDelete = (id) => {
     if (window.confirm('are you sure ?')) {
@@ -188,6 +192,19 @@ const EpreuvesTable = () => {
 
   return (
     <DashboardLayout>
+      <Card.Header className='card-header d-flex  justify-content-between'>
+        <h5 className='mb-0 text-white'></h5>
+        <h6>
+          <Button
+            onClick={handleShow}
+            variant=''
+            className='bg-red-600 text-white'
+            size='sm'
+          >
+            Ajouter une Session
+          </Button>
+        </h6>
+      </Card.Header>
       {loading ? (
         <Loader />
       ) : (
