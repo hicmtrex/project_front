@@ -7,11 +7,29 @@ import { getEpreuvesList } from '../../../store/epreuves/list-slice';
 import { Button } from 'react-bootstrap';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { myAxios } from '../../../utils/axios';
+import { useState } from 'react';
+import toast from 'react-hot-toast';
+import { setError } from '../../../utils/help-api';
 
 const EpreuvesTable = () => {
   const dispatch = useDispatch();
   const { epreuves, loading } = useSelector((state) => state.epreuvesList);
+  const [refresh, setRefresh] = useState(false);
 
+  const onDelete = (id) => {
+    if (window.confirm('are you sure ?')) {
+      myAxios
+        .delete(`cexEpreuves/${id}`)
+        .then((res) => {
+          toast.success('la session a été supprimée');
+          setRefresh((prev) => (prev = !prev));
+        })
+        .catch((e) => {
+          toast.error(setError(e));
+        });
+    }
+  };
   const columns = [
     {
       name: 'anneeDeb',
@@ -139,7 +157,11 @@ const EpreuvesTable = () => {
               >
                 <FaEdit />
               </Link>
-              <Button size='sm' variant='danger'>
+              <Button
+                onClick={() => onDelete(epreuves[tableMeta.rowIndex].id)}
+                size='sm'
+                variant='danger'
+              >
                 <FaTrash />
               </Button>
             </>
@@ -158,15 +180,11 @@ const EpreuvesTable = () => {
     jumpToPage: true,
     selectableRowsOnClick: false,
     selectableRowsHideCheckboxes: true,
-    onTableChange: (action, state) => {
-      console.log(action);
-      console.dir(state);
-    },
   };
 
   useEffect(() => {
     dispatch(getEpreuvesList());
-  }, [dispatch]);
+  }, [dispatch, refresh]);
 
   return (
     <DashboardLayout>

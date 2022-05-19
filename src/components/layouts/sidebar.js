@@ -121,7 +121,7 @@ const Sidebar = () => {
             </li>
             <li className='nav-item '>
               <Link className='nav-link p-5' to='/epreuves'>
-                <ImUserTie className='me-2' size={'1.5rem'} /> épreuves
+                <ImUserTie className='me-2' size={'1.5rem'} /> Epreuves
               </Link>
             </li>
             <li className='nav-item '>
