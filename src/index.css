@@ -1,13 +1,16 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.0/font/bootstrap-icons.min.css');
 @import '@webpixels/css';
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap');
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  list-style: none;
 }
 
 body {
-  background: #f7f7f7 !important;
+  font-family: 'Roboto', sans-serif;
 }
 
 .form-label {
@@ -15,6 +18,23 @@ body {
   margin: 10px 0;
 }
 
-.App {
-  text-align: center;
+/* table */
+.css-1t29gy6-MuiToolbar-root {
 }
+
+.css-apqrd9-MuiTableBody-root {
+}
+
+.css-apqrd9-MuiTableBody-root td {
+  padding: 25px 15px;
+}
+.css-15wwp11-MuiTableHead-root th {
+  font-size: 0.9rem;
+  background-color: #cc2952;
+  color: #fff;
+}
+
+.css-9cgc89-MuiTableFooter-root svg {
+  color: #fff;
+}
+/* end of table */

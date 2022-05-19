@@ -9,7 +9,7 @@ import { getDispoSalles } from '../../../store/salles/dispoSalles-list';
 import DispoSurveColumn from '../../../components/columns/dispoSurve-column';
 import { Link } from 'react-router-dom';
 
-const SurveillantTable = () => {
+const SurveillantDisponible = () => {
   const loading = null;
   const { dispoSalles } = useSelector((state) => state.dispoSalles);
   const dispatch = useDispatch();
@@ -39,23 +39,18 @@ const SurveillantTable = () => {
 
   return (
     <DashboardLayout navItems={navItems}>
-      <ul className='nav  ps-3'>
-        <li className='nav-item '>
-          <Link to='/surveillants' className='nav-link '>
-            List surveillants
-          </Link>
-        </li>
-        <li className='nav-item'>
-          <Link to='#' className='nav-link '>
-            Disponibilite
-          </Link>
-        </li>
-        <li className='nav-item'>
-          <Link to='/surveillants-affectation' className='nav-link '>
-            Affectation
-          </Link>
-        </li>
-      </ul>
+      <div id='topnavbar'>
+        <div className='topnav mb-3'>
+          <div className='d-flex px-1 '>
+            {' '}
+            <Link to='/surveillants'>List des surveillants</Link>
+            <Link to='/surveillants-disponible'>
+              Surveillants disponible
+            </Link>{' '}
+            <Link to='/surveillants-affectation'>Affectation</Link>
+          </div>
+        </div>
+      </div>
       <Card className=' shadow border-0 mb-2  rounded-0'>
         <Card.Header className='card-header d-flex bg-dark  justify-content-between'>
           <h4 className='mb-0 text-white'> Les surveillants disponible</h4>
@@ -117,4 +112,4 @@ const SurveillantTable = () => {
   );
 };
 
-export default SurveillantTable;
+export default SurveillantDisponible;

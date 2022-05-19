@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import DashboardLayout from '../../../components/layouts/dashboard-layout';
 import { Card, Table, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,8 +5,8 @@ import { getAllDepartment } from '../../../store/department/department-list';
 import DepartmentColumns from '../../../components/columns/department-columns';
 import DepartmentForm from '../../../components/forms/department-form';
 import Loader from '../../../components/UI/loader';
-import DepartmentEdit from '../../../components/forms/edit/department-edit';
 import Paginate from '../../../components/UI/paginate';
+import { useEffect, useState } from 'react';
 
 const DepartmentTable = () => {
   const { departments, loading } = useSelector((state) => state.departmentList);
@@ -81,11 +80,11 @@ const DepartmentTable = () => {
         </Card>
       )}
       <DepartmentForm show={show} handleClose={handleClose} />
-      <DepartmentEdit
+      {/* <DepartmentEdit
         currentId={currentId}
         show={showEdit}
         handleClose={handleCloseEdit}
-      />
+      /> */}
       <Paginate />
     </DashboardLayout>
   );

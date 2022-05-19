@@ -1,28 +1,41 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { userLogin } from '../../../store/users/login-slice';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+
+const schema = yup
+  .object({
+    email: yup.string().required('email est obligatoire').email(),
+    password: yup.string().required('password est obligatoire'),
+  })
+  .required();
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const { userInfo } = useSelector((state) => state.login);
-  // const onSubmit = () => {
-  //   dispatch(
-  //     userLogin({
-  //       email: 'emna@gmail.com',
-  //       username: 'emna',
-  //     })
-  //   );
-  //   navigate('/');
-  // };
+  const { userInfo } = useSelector((state) => state.login);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
-  // useEffect(() => {
-  //   if (userInfo) {
-  //     navigate('/');
-  //   }
-  // }, [userInfo]);
+  const onSubmit = (data) => {
+    dispatch(userLogin(data));
+    navigate('/');
+  };
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate('/');
+    }
+  }, [userInfo]);
 
   return (
     <div className='px-5 py-5 p-lg-0 bg-surface-secondary'>
@@ -54,27 +67,28 @@ const Login = () => {
                 </span>
                 <h1 className='ls-tight font-bolder h2'>Nice to see you!</h1>
               </div>
-              <Form>
+              <Form onSubmit={handleSubmit(onSubmit)}>
                 <div className='mb-5'>
-                  <label className='form-label' htmlFor='email'>
-                    Email address
-                  </label>
-                  <input
+                  <Form.Label htmlFor='email'>Email address</Form.Label>
+                  <Form.Control
                     type='email'
-                    className='form-control form-control-muted'
+                    placeholder='johndoe@gmail.com'
                     id='email'
+                    {...register('email')}
+                    className={errors.email?.message && 'is-invalid'}
                   />
+                  <p className='invalid-feedback'>{errors.email?.message}</p>
                 </div>
                 <div className='mb-5'>
-                  <label className='form-label' htmlFor='password'>
-                    Password
-                  </label>
-                  <input
+                  <Form.Label htmlFor='password'>Password</Form.Label>
+                  <Form.Control
                     type='password'
-                    className='form-control form-control-muted'
+                    placeholder='*******'
                     id='password'
-                    autoComplete='current-password'
+                    {...register('password')}
+                    className={errors.password?.message && 'is-invalid'}
                   />
+                  <p className='invalid-feedback'>{errors.password?.message}</p>
                 </div>
                 <div className='mb-5'>
                   <div className='form-check'>

@@ -1,106 +1,71 @@
 import React, { useEffect, useState } from 'react';
 import DashboardLayout from '../../../components/layouts/dashboard-layout';
-import { Card, Table, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import DepartmentForm from '../../../components/forms/department-form';
 import Loader from '../../../components/UI/loader';
-import DepartmentEdit from '../../../components/forms/edit/department-edit';
-import SessionColumns from '../../../components/columns/sessions/session-column';
 import { getSessionList } from '../../../store/sessions/list-session';
 import MUIDataTable from 'mui-datatables';
+import { myAxios } from '../../../utils/axios';
+import { setError } from '../../../utils/help-api';
+import toast from 'react-hot-toast';
+import { Button, Card } from 'react-bootstrap';
+import SessionForm from '../../../components/forms/session-form';
+import { FaEdit, FaTrash } from 'react-icons/fa';
 
 const SessionTable = () => {
   const { sessions, loading } = useSelector((state) => state.listSession);
-
-  const dispatch = useDispatch();
+  const { refresh } = useSelector((state) => state.createSession);
   const [show, setShow] = useState(false);
-  const [showEdit, setShowEdit] = useState(false);
-  const [currentId, setCurrentId] = useState(null);
+  const [reload, setReload] = useState(false);
 
-  const handleCloseEdit = () => setShowEdit(false);
-  const handleShowEdit = (id) => {
-    setCurrentId(id);
-    setShowEdit(true);
-  };
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
 
+  const dispatch = useDispatch();
+
   const columns = [
     {
-      name: 'anneeDeb',
-      label: 'AnneeDeb',
+      name: 'AnneeDb',
       options: {
         filter: true,
-        sort: true,
+        sort: false,
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return (
+            <span>
+              {new Date(
+                sessions[tableMeta.rowIndex].anneeDeb
+              ).toLocaleDateString('en')}
+            </span>
+          );
+        },
       },
     },
     {
-      name: 'anneeFin',
-      label: 'AnneeFin',
+      name: 'AnneeFin',
+      options: {
+        filter: true,
+        sort: false,
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return (
+            <span>
+              {new Date(
+                sessions[tableMeta.rowIndex].anneeFin
+              ).toLocaleDateString('en')}
+            </span>
+          );
+        },
+      },
+    },
+    {
+      name: 'sessions',
+      label: 'Sessions',
       options: {
         filter: true,
         sort: false,
       },
     },
     {
-      name: 'classesCibles',
-      label: 'ClassesCibles',
-      options: {
-        filter: true,
-        sort: false,
-      },
-    },
-    {
-      name: 'codeAnnulation',
-      label: 'CodeAnnu',
-      options: {
-        filter: true,
-        sort: false,
-      },
-    },
-    {
-      name: 'dateAnnulsession',
-      label: 'DateAnnu',
-      options: {
-        filter: true,
-        sort: false,
-      },
-    },
-    {
-      name: 'dateCreationSession',
-      label: 'DateCr',
-      options: {
-        filter: true,
-        sort: false,
-      },
-    },
-    {
-      name: 'dateDeb',
-      label: 'DateDeb',
-      options: {
-        filter: true,
-        sort: false,
-      },
-    },
-    {
-      name: 'dateFin',
-      label: 'DateFin',
-      options: {
-        filter: true,
-        sort: false,
-      },
-    },
-    {
-      name: 'dateModifSession',
-      label: 'DateModif',
-      options: {
-        filter: true,
-        sort: false,
-      },
-    },
-    {
-      name: 'libelleSession',
-      label: 'Libelle',
+      name: 'semestre',
+      label: 'Semestre',
       options: {
         filter: true,
         sort: false,
@@ -115,47 +80,77 @@ const SessionTable = () => {
       },
     },
     {
-      name: 'semestre',
-      label: 'Semestre',
+      name: 'classesCibles',
+      label: 'ClassesCibles',
       options: {
         filter: true,
         sort: false,
       },
     },
-    // {
-    //   name: 'sessions',
-    //   label: 'Sessions',
-    //   options: {
-    //     filter: true,
-    //     sort: false,
-    //   },
-    // },
-  ];
-
-  const data = [
-    { name: 'Joe James', company: 'Test Corp', city: 'Yonkers', state: 'NY' },
-    { name: 'John Walsh', company: 'Test Corp', city: 'Hartford', state: 'CT' },
-    { name: 'Bob Herm', company: 'Test Corp', city: 'Tampa', state: 'FL' },
     {
-      name: 'James Houston',
-      company: 'Test Corp',
-      city: 'Dallas',
-      state: 'TX',
+      name: 'libelleSession',
+      label: 'LibelleSession',
+      options: {
+        filter: true,
+        sort: false,
+      },
+    },
+    {
+      name: 'Actions',
+      options: {
+        filter: true,
+        sort: false,
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return (
+            <>
+              <Button className='me-2' size='sm'>
+                <FaEdit />
+              </Button>
+              <Button
+                onClick={() => {
+                  if (window.confirm('are you sure ?')) {
+                    myAxios
+                      .delete(`cexSessions/${sessions[tableMeta.rowIndex].id}`)
+                      .then((res) => {
+                        toast.success('la session a été supprimée');
+                        setReload((prev) => (prev = !prev));
+                      })
+                      .catch((e) => {
+                        toast.error(setError(e));
+                      });
+                  }
+                }}
+                size='sm'
+                variant='danger'
+              >
+                <FaTrash />
+              </Button>
+            </>
+          );
+        },
+      },
     },
   ];
-
   const options = {
-    filterType: null,
+    filterType: 'dropdown',
+    responsive: 'standard',
+    rowHover: true,
+    jumpToPage: true,
+    selectableRowsOnClick: false,
+    selectableRowsHideCheckboxes: true,
+    onRowsDelete: (rowsDeleted, dataRows) => {
+      const idsToDelete = rowsDeleted.data.map((d) => sessions[d.dataIndex].id); // array of all ids to to be deleted
+    },
   };
 
   useEffect(() => {
     dispatch(getSessionList());
-  }, [dispatch]);
-  console.log(sessions);
+  }, [dispatch, refresh, reload]);
+
   return (
     <DashboardLayout>
-      <Card.Header className='card-header d-flex bg-dark  justify-content-between'>
-        <h4 className='mb-0 text-white'>Liste des Séance</h4>
+      <Card.Header className='card-header d-flex  justify-content-between'>
+        <h5 className='mb-0 text-white'></h5>
         <h6>
           <Button
             onClick={handleShow}
@@ -163,7 +158,7 @@ const SessionTable = () => {
             className='bg-red-600 text-white'
             size='sm'
           >
-            Ajouter une Séance
+            Ajouter une Session
           </Button>
         </h6>
       </Card.Header>
@@ -171,18 +166,17 @@ const SessionTable = () => {
         <Loader />
       ) : (
         <MUIDataTable
-          title={'Employee List'}
+          title={
+            <h1>
+              <span> la liste</span> des session
+            </h1>
+          }
           data={sessions}
           columns={columns}
           options={options}
         />
       )}
-      <DepartmentForm show={show} handleClose={handleClose} />
-      <DepartmentEdit
-        currentId={currentId}
-        show={showEdit}
-        handleClose={handleCloseEdit}
-      />
+      <SessionForm show={show} handleClose={handleClose} />
     </DashboardLayout>
   );
 };

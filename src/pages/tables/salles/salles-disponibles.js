@@ -24,41 +24,21 @@ const SallesDisponibles = () => {
 
   return (
     <DashboardLayout>
-      <ul className='nav ps-3'>
-        <li className='nav-item '>
-          <Link to='#' className='nav-link'>
-            List salles
-          </Link>
-        </li>
-        <li className='nav-item'>
-          <Link to='#' className='nav-link '>
-            Disponibilite
-          </Link>
-        </li>
-        <li className='nav-item'>
-          <Link to='/salle-affectation' className='nav-link '>
-            Affectation
-          </Link>
-        </li>
-      </ul>
+      <div id='topnavbar'>
+        <div className='topnav mb-3'>
+          <div className='d-flex px-1 '>
+            {' '}
+            <Link className='active' to='/salle'>
+              List des surveillants
+            </Link>
+            <Link to='/salles-disponible'>Surveillants disponible</Link>{' '}
+            <Link to='/salle-affectation'>Affectation</Link>
+          </div>
+        </div>
+      </div>
       <Card className=' shadow border-0 mb-2  rounded-0'>
         <Card.Header className='card-header d-flex bg-dark align-items-center  justify-content-between'>
           <h4 className='mb-0 text-white'> Les Salle disponible</h4>
-          <div className=''>
-            <div className='input-group position-relative'>
-              <input
-                type='email'
-                class='form-control'
-                placeholder='search'
-                aria-label='email@example.com'
-                aria-describedby=''
-              />
-              <Button className='input-group-text bg-red-600  btn-outline-white'>
-                <FaSearch />
-              </Button>
-            </div>
-            <span class='mt-2 valid-feedback'>Looks good!</span>
-          </div>
         </Card.Header>
         <div className=' d-flex my-3 ps-3'>
           <Form.Group className='d-flex'>

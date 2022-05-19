@@ -1,12 +1,17 @@
-import { useAuth0 } from '@auth0/auth0-react';
 import React, { useEffect } from 'react';
 import { Row, Col, Card } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 
 import { useNavigate } from 'react-router-dom';
 import DashboardLayout from '../components/layouts/dashboard-layout';
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const { userInfo } = useSelector((state) => state.login);
+
+  // useEffect(() => {
+  //   if (!userInfo) navigate('/login');
+  // }, [userInfo]);
 
   return (
     <DashboardLayout>

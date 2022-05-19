@@ -1,23 +1,19 @@
-import { useAuth0 } from '@auth0/auth0-react';
+import { signOut } from 'firebase/auth';
 import React, { useState, useEffect } from 'react';
 import { Button, Col, Container, Image, Navbar, Row } from 'react-bootstrap';
 import { FaUser } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Login from '../../pages/users/login/login';
+import auth from '../../firebase/config';
 import { userLogout } from '../../store/users/login-slice';
-import AuthModal from '../modals/auth-modal';
 
 const Topbar = () => {
-  const { userInfo } = useSelector((state) => state.login);
   const dispatch = useDispatch();
 
-  const { isLoading, error, loginWithRedirect, isAuthenticated, user, logout } =
-    useAuth0();
-
-  useEffect(() => {
-    if (!isAuthenticated) loginWithRedirect();
-  }, [isAuthenticated]);
+  const onLogout = async () => {
+    await signOut(auth);
+    dispatch(userLogout());
+  };
 
   return (
     <header className='bg-red-600 border-bottom pt-3'>
@@ -41,7 +37,9 @@ const Topbar = () => {
                     <div className='avatar-parent-child'>
                       <Image
                         alt='Image Placeholder'
-                        src={user?.picture}
+                        src={
+                          'https://us.123rf.com/450wm/tuktukdesign/tuktukdesign1608/tuktukdesign160800043/61010830-user-icon-man-profile-businessman-avatar-person-glyph-vector-illustration.jpg?ver=6'
+                        }
                         className='avatar avatar- rounded-circle mb-2'
                       />
                       <span className='avatar-child avatar-badge bg-success' />
@@ -58,9 +56,9 @@ const Topbar = () => {
                       Paramètres
                     </a>
                     <Link
-                      onClick={() => logout()}
                       to='#'
                       className='dropdown-item'
+                      onClick={() => onLogout()}
                     >
                       Logout
                     </Link>

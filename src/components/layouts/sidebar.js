@@ -1,3 +1,4 @@
+import { signOut } from 'firebase/auth';
 import React from 'react';
 import { Nav, Image, Container, Button, Navbar } from 'react-bootstrap';
 import { AiFillHome, AiFillDashboard } from 'react-icons/ai';
@@ -7,10 +8,17 @@ import { ImUserTie } from 'react-icons/im';
 import { useDispatch } from 'react-redux';
 
 import { Link } from 'react-router-dom';
+import auth from '../../firebase/config';
 import { userLogout } from '../../store/users/login-slice';
 
 const Sidebar = () => {
   const dispatch = useDispatch();
+
+  const onLogout = async () => {
+    await signOut(auth);
+    dispatch(userLogout());
+  };
+
   return (
     <Navbar
       expand='lg'
@@ -85,12 +93,7 @@ const Sidebar = () => {
                 <AiFillHome className='me-2' size={'1.5rem'} /> Accueil
               </Link>
             </li>
-            <li className='nav-item '>
-              <a className='nav-link p-5' href='/admin/dashboard'>
-                <AiFillDashboard className='me-2' size={'1.5rem'} /> Tableau de
-                bord
-              </a>
-            </li>
+
             <li className='nav-item '>
               <Link className='nav-link p-5' to='/department'>
                 <FaUserTie className='me-2' size={'1.5rem'} /> Department
@@ -106,14 +109,28 @@ const Sidebar = () => {
                 <FaUserTie className='me-2' size={'1.5rem'} /> Séance
               </Link>
             </li>
-
             <li className='nav-item '>
               <Link className='nav-link p-5' to='/modules'>
                 <FaUserTie className='me-2' size={'1.5rem'} /> Modules
               </Link>
             </li>
             <li className='nav-item '>
-              <Link className='nav-link p-5' to='/salles'>
+              <Link className='nav-link p-5' to='/classes'>
+                <FaUserTie className='me-2' size={'1.5rem'} /> Classes
+              </Link>
+            </li>
+            <li className='nav-item '>
+              <Link className='nav-link p-5' to='/epreuves'>
+                <ImUserTie className='me-2' size={'1.5rem'} /> épreuves
+              </Link>
+            </li>
+            <li className='nav-item '>
+              <Link className='nav-link p-5' to='/planification'>
+                <FaUserTie className='me-2' size={'1.5rem'} /> Planification
+              </Link>
+            </li>
+            <li className='nav-item '>
+              <Link className='nav-link p-5' to='/salle'>
                 <FaUserTie className='me-2' size={'1.5rem'} /> Salles
               </Link>
             </li>
@@ -136,7 +153,7 @@ const Sidebar = () => {
               </a>
             </li>
             <li className='nav-item'>
-              <Nav.Link onClick={() => dispatch(userLogout())}>
+              <Nav.Link onClick={() => dispatch(onLogout)}>
                 <i className='bi bi-box-arrow-left' /> Se déconnecte
               </Nav.Link>
             </li>

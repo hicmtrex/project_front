@@ -1,36 +1,113 @@
 import React, { useEffect, useState } from 'react';
 import DashboardLayout from '../../../components/layouts/dashboard-layout';
-import { Card, Table, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../../../components/UI/loader';
-import SeanceColumns from '../../../components/columns/seance/seance-column';
 import { getSeanceList } from '../../../store/seance/list-seance';
-import Paginate from '../../../components/UI/paginate';
+import SeanceForm from '../../../components/forms/seance-form';
+import MUIDataTable from 'mui-datatables';
+import { Button, Card } from 'react-bootstrap';
+import { myAxios } from '../../../utils/axios';
+import toast from 'react-hot-toast';
+import { setError } from '../../../utils/help-api';
 
 const SeanceTable = () => {
   const { seances, loading } = useSelector((state) => state.listSeance);
-
+  const { refresh } = useSelector((state) => state.createSeance);
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
-  const [showEdit, setShowEdit] = useState(false);
-  const [currentId, setCurrentId] = useState(null);
 
-  const handleCloseEdit = () => setShowEdit(false);
-  const handleShowEdit = (id) => {
-    setCurrentId(id);
-    setShowEdit(true);
-  };
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
 
+  const options = {
+    filterType: 'dropdown',
+    responsive: 'standard',
+    print: false,
+    rowHover: true,
+    download: false,
+    selectableRowsOnClick: true,
+    selectableRowsHideCheckboxes: true,
+    onRowsDelete: (rowsDeleted, dataRows) => {
+      const idsToDelete = rowsDeleted.data.map((d) => seances[d.dataIndex].id); // array of all ids to to be deleted
+
+      myAxios
+        .delete(`/cexSeances/${idsToDelete[0]}`)
+        .then((res) => {
+          toast.success('la seance a été supprimée');
+        })
+        .catch((e) => {
+          toast.error(setError(e));
+        });
+    },
+  };
+
+  const columns = [
+    {
+      name: 'idSeance',
+      label: 'IdSeance',
+      options: {
+        filter: true,
+        sort: false,
+      },
+    },
+    {
+      name: 'classesCibles',
+      label: 'classesCibles',
+      options: {
+        filter: true,
+        sort: false,
+      },
+    },
+    {
+      name: 'dateSeance',
+      label: 'dateSeance',
+      options: {
+        filter: true,
+        sort: false,
+      },
+    },
+    {
+      name: 'hDeb',
+      label: 'hDeb',
+      options: {
+        filter: true,
+        sort: false,
+      },
+    },
+    {
+      name: 'jour',
+      label: 'jour',
+      options: {
+        filter: true,
+        sort: false,
+      },
+    },
+    {
+      name: 'sessions',
+      label: 'sessions',
+      options: {
+        filter: true,
+        sort: false,
+      },
+    },
+    {
+      name: 'seance',
+      label: 'seance',
+      options: {
+        filter: true,
+        sort: false,
+      },
+    },
+  ];
+
   useEffect(() => {
     dispatch(getSeanceList());
-  }, [dispatch]);
-  console.log(seances);
+  }, [dispatch, refresh]);
+
   return (
     <DashboardLayout>
-      <Card.Header className='card-header d-flex bg-dark  justify-content-between'>
-        <h4 className='mb-0 text-white'>Liste des Séance</h4>
+      <Card.Header className='d-flex  justify-content-between'>
+        <h5 className='mb-0 text-white'></h5>
         <h6>
           <Button
             onClick={handleShow}
@@ -38,62 +115,25 @@ const SeanceTable = () => {
             className='bg-red-600 text-white'
             size='sm'
           >
-            Ajouter une Séance
+            Ajouter une Seance
           </Button>
         </h6>
       </Card.Header>
       {loading ? (
         <Loader />
       ) : (
-        <Card className=' shadow border-0 mb-2'>
-          <Table bordered hover responsive>
-            <thead className='thead-light bg-red-600 text-white'>
-              <tr>
-                <th scope='col'>annee deb</th>
-                <th scope='col'>annee fin</th>
-                <th scope='col'>
-                  <span className=''>classes cibles</span>
-                </th>
-                <th scope='col'>
-                  <span className=''>code anuulation</span>
-                </th>
-                <th scope='col'>
-                  <span className=''>date creation seance</span>
-                </th>
-                <th scope='col'>
-                  <span className=''>data modif seance</span>
-                </th>
-                <th scope='col'>
-                  <span className=''>datesence</span>
-                </th>
-                <th scope='col'>
-                  <span className=''>hdeb</span>
-                </th>
-                <th scope='col'>idSession</th>
-                <th scope='col'>jour</th>
-                <th scope='col'>Seance</th>
-                <th scope='col'>sessions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {seances.map((seance) => (
-                <SeanceColumns
-                  handleShowEdit={handleShowEdit}
-                  seance={seance}
-                  key={seance?.CODE_DEPT}
-                />
-              ))}
-            </tbody>
-          </Table>
-        </Card>
+        <MUIDataTable
+          title={
+            <h1>
+              <span className='text-danger'> liste</span> des Seances
+            </h1>
+          }
+          data={seances}
+          columns={columns}
+          options={options}
+        />
       )}
-      {/* <DepartmentForm show={show} handleClose={handleClose} />
-      <DepartmentEdit
-        currentId={currentId}
-        show={showEdit}
-        handleClose={handleCloseEdit}
-      /> */}
-      <Paginate />
+      <SeanceForm show={show} handleClose={handleClose} />
     </DashboardLayout>
   );
 };

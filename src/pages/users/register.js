@@ -2,19 +2,25 @@ import React from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { userLogin } from '../../store/users/login-slice';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+
+const schema = yup
+  .object({
+    email: yup.string().required('email est obligatoire').email(),
+    password: yup.string().required('password est obligatoire'),
+    confirmPwd: yup
+      .string()
+      .required()
+      .oneOf([yup.ref('password')], 'password does not match'),
+  })
+  .required();
 
 const Register = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   // const { userInfo } = useSelector((state) => state.login);
   const onSubmit = () => {
-    dispatch(
-      userLogin({
-        email: 'emna@gmail.com',
-        username: 'emna',
-      })
-    );
     navigate('/');
   };
 
@@ -56,16 +62,6 @@ const Register = () => {
               </div>
               <Form onSubmit={onSubmit}>
                 <div className='mb-5'>
-                  <label className='form-label' htmlFor='username'>
-                    Username
-                  </label>
-                  <Form.Control
-                    type='text'
-                    className='form-control-muted'
-                    id='username'
-                  />
-                </div>
-                <div className='mb-5'>
                   <label className='form-label' htmlFor='email'>
                     Email address
                   </label>
@@ -84,6 +80,18 @@ const Register = () => {
                     className='form-control form-control-muted'
                     id='password'
                     autoComplete='current-password'
+                    placeholder='*******'
+                  />
+                </div>
+                <div className='mb-5'>
+                  <label className='form-label' htmlFor='username'>
+                    Confirm Password
+                  </label>
+                  <Form.Control
+                    type='text'
+                    className='form-control-muted'
+                    id='username'
+                    placeholder='*******'
                   />
                 </div>
                 <div className='mb-5'>

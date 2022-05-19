@@ -23,23 +23,18 @@ const SallesAffectation = () => {
 
   return (
     <DashboardLayout>
-      <ul className='nav ps-3'>
-        <li className='nav-item '>
-          <Link to='/salles' className='nav-link'>
-            List salles
-          </Link>
-        </li>
-        <li className='nav-item'>
-          <Link to='/salles' className='nav-link '>
-            Disponibilite
-          </Link>
-        </li>
-        <li className='nav-item'>
-          <Link to='/salle-affectation' className='nav-link '>
-            Affectation
-          </Link>
-        </li>
-      </ul>
+      <div id='topnavbar'>
+        <div className='topnav mb-3'>
+          <div className='d-flex px-1 '>
+            {' '}
+            <Link className='active' to='/salle'>
+              List des surveillants
+            </Link>
+            <Link to='/salles-disponible'>Surveillants disponible</Link>{' '}
+            <Link to='/salle-affectation'>Affectation</Link>
+          </div>
+        </div>
+      </div>
       <Card className=' shadow border-0 mb-2  rounded-0'>
         <Card.Header className='card-header d-flex bg-dark  justify-content-between'>
           <h4 className='mb-0 text-white'>

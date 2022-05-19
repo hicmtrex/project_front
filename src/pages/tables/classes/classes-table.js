@@ -2,31 +2,13 @@ import React, { useEffect } from 'react';
 import DashboardLayout from '../../../components/layouts/dashboard-layout';
 import { useDispatch, useSelector } from 'react-redux';
 import MUIDataTable from 'mui-datatables';
-import { getModulesList } from '../../../store/modules/list-slice';
+import { getAllClasses } from '../../../store/classes/list-slice';
 import Loader from '../../../components/UI/loader';
+import { Container } from 'react-bootstrap';
 
-const columns = [
-  {
-    name: 'codeModule',
-    label: 'CodeModule',
-    options: {
-      filter: true,
-      sort: false,
-    },
-  },
-  {
-    name: 'designation',
-    label: 'Designation',
-    options: {
-      filter: true,
-      sort: false,
-    },
-  },
-];
-
-const ModulesTable = () => {
+const ClassesTable = () => {
   const dispatch = useDispatch();
-  const { modules, loading } = useSelector((state) => state.modulesList);
+  const { classes, loading } = useSelector((state) => state.classesList);
 
   const options = {
     filterType: 'dropdown',
@@ -42,8 +24,27 @@ const ModulesTable = () => {
     },
   };
 
+  const columns = [
+    {
+      name: 'codeCl',
+      label: 'CodeCl',
+      options: {
+        filter: true,
+        sort: false,
+      },
+    },
+    {
+      name: 'filiere',
+      label: 'Filiere',
+      options: {
+        filter: true,
+        sort: false,
+      },
+    },
+  ];
+
   useEffect(() => {
-    dispatch(getModulesList());
+    dispatch(getAllClasses());
   }, [dispatch]);
 
   return (
@@ -54,10 +55,12 @@ const ModulesTable = () => {
         <MUIDataTable
           title={
             <h1>
-              <span className='text-danger'> liste</span> des modules
+              <em>
+                <span className=''> liste</span> des classes
+              </em>
             </h1>
           }
-          data={modules}
+          data={classes}
           columns={columns}
           options={options}
         />
@@ -66,4 +69,4 @@ const ModulesTable = () => {
   );
 };
 
-export default ModulesTable;
+export default ClassesTable;
