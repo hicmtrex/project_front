@@ -60,7 +60,7 @@ const EprevueUpdate = () => {
       anneeFin: Math.floor(Math.random() * 100),
     });
   };
-  console.log(epreuve);
+
   return (
     <DashboardLayout>
       <Row className='justify-content-md-center mt-5 pt-5  '>

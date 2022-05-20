@@ -15,39 +15,41 @@ const PlanificationTable = () => {
     <DashboardLayout>
       <h1 className='mb-0'>Planification des épreuves</h1>
       <Row className='mt-5'>
-        <Col md={6}>
+        <Col>
+          <div className='card-header d-flex  justify-content-between align-items-center'>
+            <h4 className='mb-0'></h4>
+            <Button
+              size='sm'
+              variant={`${toggleModule ? 'success' : 'secondary'}`}
+              className='w-50'
+              disabled={!toggleModule}
+            >
+              ajouter
+            </Button>
+          </div>
           <Card className=' shadow border-0 mb-2'>
-            <Card.Header className='card-header d-flex  justify-content-between align-items-center'>
-              <h4 className='mb-0'>Modules</h4>
-              <Button
-                size='sm'
-                variant={`${toggleModule ? 'success' : 'secondary'}`}
-                className='w-50'
-                disabled={!toggleModule}
-              >
-                ajouter
-              </Button>
-            </Card.Header>
             <Table bordered hover responsive>
               <thead className='thead-light bg-red-600 text-white'>
                 <tr>
                   <th scope='col'>Code module</th>
                   <th scope='col'>
-                    <span className=''>libelle</span>
+                    <span className=''>Designation</span>
                   </th>
                   <th scope='col'>
-                    <span className=''>nbclasse</span>
+                    <span className=''>nbclasses</span>
                   </th>
                   <th scope='col'>
-                    <span className=''>idSeance</span>
+                    <span className=''>dsex</span>
                   </th>
                   <th scope='col'>
-                    <span className=''>d_h epreuve</span>
+                    <span className=''>Type epreuve</span>
                   </th>
                   <th scope='col'>
-                    <span className=''>flag</span>
+                    <span className=''>Id Seance</span>
                   </th>
-                  <th scope='col'> Chèque</th>
+                  <th scope='col'> Date heure</th>
+                  <th scope='col'> Flag</th>
+                  <th scope='col'> Check</th>
                 </tr>
               </thead>
               <tbody>
@@ -58,8 +60,9 @@ const PlanificationTable = () => {
                   <td>Hello</td>
                   <td>Hello</td>
                   <td> Hello</td>
+                  <td> Hello</td>
+                  <td> Hello</td>
                   <td>
-                    {' '}
                     <input
                       type='checkbox'
                       className='form-check-input h-6 w-6'
@@ -80,7 +83,7 @@ const PlanificationTable = () => {
           </Card>
         </Col>
 
-        <Col md={6}>
+        {/* <Col md={6}>
           <Card className=' shadow border-0 mb-2'>
             <Card.Header className='card-header d-flex align-items-center  justify-content-between'>
               <h4 className='mb-0 '>Séances</h4>
@@ -147,9 +150,9 @@ const PlanificationTable = () => {
               </tbody>
             </Table>
           </Card>
-        </Col>
+        </Col> */}
       </Row>
-
+      {/* 
       <Card className='shadow border-0 mb-2 mt-10'>
         <Table bordered hover responsive>
           <thead className='thead-light bg-red-600 text-white'>
@@ -251,7 +254,7 @@ const PlanificationTable = () => {
             </tr>
           </tbody>
         </Table>
-      </Card>
+      </Card> */}
     </DashboardLayout>
   );
 };
