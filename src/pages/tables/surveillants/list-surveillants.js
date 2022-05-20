@@ -123,7 +123,7 @@ const ListSurveillants = () => {
         <MUIDataTable
           title={
             <h2>
-              <span className='text-danger'> liste</span> des Surveillants
+              <span> liste</span> des Surveillants
             </h2>
           }
           data={salles}

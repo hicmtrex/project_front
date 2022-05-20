@@ -158,7 +158,7 @@ const SessionTable = () => {
             className='bg-red-600 text-white'
             size='sm'
           >
-            Ajouter une Session
+            Ajouter une session
           </Button>
         </h6>
       </Card.Header>
@@ -168,7 +168,7 @@ const SessionTable = () => {
         <MUIDataTable
           title={
             <h1>
-              <span> la liste</span> des session
+              <span>liste</span> des session
             </h1>
           }
           data={sessions}

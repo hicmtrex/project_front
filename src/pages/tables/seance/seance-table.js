@@ -125,7 +125,7 @@ const SeanceTable = () => {
         <MUIDataTable
           title={
             <h1>
-              <span className='text-danger'> liste</span> des Seances
+              <span> liste</span> des Seances
             </h1>
           }
           data={seances}

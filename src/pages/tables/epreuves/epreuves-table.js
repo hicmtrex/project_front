@@ -202,7 +202,7 @@ const EpreuvesTable = () => {
             className='bg-red-600 text-white'
             size='sm'
           >
-            Ajouter une Session
+            Ajouter une Epreuve
           </Button>
         </h6>
       </Card.Header>
