@@ -27,18 +27,16 @@ const SallesDisponibles = () => {
       <div id='topnavbar'>
         <div className='topnav mb-3'>
           <div className='d-flex px-1 '>
-            {' '}
             <Link className='active' to='/salle'>
-              List des surveillants
+              List des salle
             </Link>
-            <Link to='/salles-disponible'>Surveillants disponible</Link>{' '}
-            <Link to='/salle-affectation'>Affectation</Link>
+            <Link to='/salles-disponible'>salle disponible</Link>
           </div>
         </div>
       </div>
       <Card className=' shadow border-0 mb-2  rounded-0'>
-        <Card.Header className='card-header d-flex bg-dark align-items-center  justify-content-between'>
-          <h4 className='mb-0 text-white'> Les Salle disponible</h4>
+        <Card.Header className='card-header d-flex  align-items-center  justify-content-between'>
+          <h4 className='mb-0 '> Les Salle disponible</h4>
         </Card.Header>
         <div className=' d-flex my-3 ps-3'>
           <Form.Group className='d-flex'>

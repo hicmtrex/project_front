@@ -8,12 +8,14 @@ import departmentDetailsSlice from './department/department-details';
 import departmentListSlice from './department/department-list';
 import epreuvesListSlice from './epreuves/list-slice';
 import modulesListSlice from './modules/list-slice';
+import planificationSListSlice from './planification/list-slice';
 import getDispoSallesSlice from './salles/dispoSalles-list';
 import salleListSlice from './salles/list-slice';
 import createSeanceSlice from './seance/create-slice';
 import listSeanceSlice from './seance/list-seance';
 import createSessionSlice from './sessions/create-slice';
 import listSessionSlice from './sessions/list-session';
+import listSurveillantListSlice from './surveillants/list-slice';
 import userLoginSlice from './users/login-slice';
 
 const reducers = combineReducers({
@@ -38,6 +40,9 @@ const reducers = combineReducers({
   dispoSalles: getDispoSallesSlice.reducer,
   //epreuves
   epreuvesList: epreuvesListSlice.reducer,
+  planificationSList: planificationSListSlice.reducer,
+  //surveillants
+  listSurveillantList: listSurveillantListSlice.reducer,
 });
 
 const persistConfig = {

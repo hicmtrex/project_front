@@ -12,7 +12,7 @@ const schema = yup
   .object({
     classesCibles: yup.string().required(),
     dateSeance: yup.string().required(),
-    jour: yup.string().required(),
+    jour: yup.number().required(),
     hDeb: yup.string().required(),
     sessions: yup.string().required(),
     seance: yup.string().required(),
@@ -48,12 +48,13 @@ const SeanceForm = ({ handleClose, show }) => {
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Form.Group>
           <Form.Label>ClassesCibles</Form.Label>
-          <Form.Control
-            type='text'
-            placeholder='ClassesCibles'
+          <Form.Select
             {...register('classesCibles')}
             className={errors.classesCibles?.message && 'is-invalid'}
-          />
+          >
+            <option value={1}>1ere - 4éme</option>
+            <option value={4}>5éme</option>
+          </Form.Select>
           <p className='invalid-feedback'>{errors.classesCibles?.message}</p>
         </Form.Group>
 
@@ -82,22 +83,26 @@ const SeanceForm = ({ handleClose, show }) => {
         <Form.Group>
           <Form.Label>Jour</Form.Label>
           <Form.Control
-            type='text'
             placeholder='jour'
             {...register('jour')}
             className={errors.jour?.message && 'is-invalid'}
           />
           <p className='invalid-feedback'>{errors.jour?.message}</p>
         </Form.Group>
-
         <Form.Group>
-          <Form.Label>Sessions</Form.Label>
-          <Form.Control
-            type='text'
-            placeholder='Code Departement'
+          <Form.Label>sessions</Form.Label>
+          <Form.Select
             {...register('sessions')}
             className={errors.sessions?.message && 'is-invalid'}
-          />
+          >
+            <option value={1}>1</option>
+            <option value={2}>2</option>
+            <option value={3}>3</option>
+            <option value={4}>4</option>
+            <option value={5}>5</option>
+            <option value={6}>6</option>
+            <option value={7}>7</option>
+          </Form.Select>
           <p className='invalid-feedback'>{errors.sessions?.message}</p>
         </Form.Group>
 
@@ -117,7 +122,7 @@ const SeanceForm = ({ handleClose, show }) => {
           className='mt-3 w-full  bg-red-600 text-white'
           variant=''
         >
-          Submit
+          Ajouter
         </Button>
       </Form>
     </AddDepartment>

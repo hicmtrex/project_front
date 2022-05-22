@@ -47,13 +47,12 @@ const SurveillantDisponible = () => {
             <Link to='/surveillants-disponible'>
               Surveillants disponible
             </Link>{' '}
-            <Link to='/surveillants-affectation'>Affectation</Link>
           </div>
         </div>
       </div>
       <Card className=' shadow border-0 mb-2  rounded-0'>
-        <Card.Header className='card-header d-flex bg-dark  justify-content-between'>
-          <h4 className='mb-0 text-white'> Les surveillants disponible</h4>
+        <Card.Header className='card-header d-flex  justify-content-between'>
+          <h4 className='mb-0 '> Les surveillants disponible</h4>
         </Card.Header>
         <div className=' d-flex my-3'>
           <Form.Group className='d-flex ps-3'>

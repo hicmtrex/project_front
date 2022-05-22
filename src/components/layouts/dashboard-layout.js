@@ -3,6 +3,7 @@ import Sidebar from './sidebar';
 import Topbar from './topbar';
 import { Container } from 'react-bootstrap';
 import './tabs.css';
+
 const DashboardLayout = ({ children }) => {
   return (
     <div className='d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary'>

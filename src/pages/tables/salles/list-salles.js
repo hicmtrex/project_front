@@ -110,10 +110,10 @@ const ListSalles = () => {
           <div className='d-flex px-1 '>
             {' '}
             <Link className='active' to='/salle'>
-              List des surveillants
+              List des salle
             </Link>
-            <Link to='/salles-disponible'>Surveillants disponible</Link>{' '}
-            <Link to='/salle-affectation'>Affectation</Link>
+            <Link to='/salles-disponible'>salle disponible</Link>
+            {/* <Link to='/salle-affectation'>Affectation</Link> */}
           </div>
         </div>
       </div>
@@ -121,11 +121,7 @@ const ListSalles = () => {
         <Loader />
       ) : (
         <MUIDataTable
-          title={
-            <h1>
-              <span className='text-danger'> liste</span> des Salles
-            </h1>
-          }
+          title={<h2>liste des Salles</h2>}
           data={salles}
           columns={columns}
           options={options}

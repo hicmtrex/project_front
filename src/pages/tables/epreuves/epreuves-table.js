@@ -6,39 +6,87 @@ import Loader from '../../../components/UI/loader';
 import { getEpreuvesList } from '../../../store/epreuves/list-slice';
 import { Button, Card } from 'react-bootstrap';
 import { FaEdit, FaTrash } from 'react-icons/fa';
+import { HiOutlineFolderAdd } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
 import { myAxios } from '../../../utils/axios';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { setError } from '../../../utils/help-api';
 import EpreuveForm from '../../../components/forms/epreuve-form';
+import { getAllSalles } from '../../../store/salles/list-slice';
+import { getSeanceList } from '../../../store/seance/list-seance';
+import { getSurveillantsList } from '../../../store/surveillants/list-slice';
 
 const EpreuvesTable = () => {
   const dispatch = useDispatch();
   const { epreuves, loading } = useSelector((state) => state.epreuvesList);
+  const { salles } = useSelector((state) => state.salleList);
+  const { seances } = useSelector((state) => state.listSeance);
+  const { surveillants } = useSelector((state) => state.listSurveillantList);
+
   const [refresh, setRefresh] = useState(false);
   const [show, setShow] = useState(false);
-
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
 
+  const [formData, setFormData] = useState({
+    codeSalle1: '',
+    codeSalle2: '',
+    IdSeance: '',
+    surv11: '',
+    surv12: '',
+    surv21: '',
+    surv22: '',
+  });
+
+  const onChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const onAdd = (id, index) => {
+    myAxios
+      .put(`cexEpreuves/${id}`, {
+        codeCl: epreuves[index].codeCl,
+        codeModule: epreuves[index].codeModule,
+        dsex: epreuves[index].dsex,
+        idSession: epreuves[index].idSession,
+        typeEpreuve: epreuves[index].typeEpreuve,
+        anneeDeb: epreuves[index].anneeDeb,
+        anneeFin: epreuves[index].anneeFin,
+        codeSalle1: formData.codeSalle1,
+        codeSalle2: formData.codeSalle2,
+        surv11: formData.surv11,
+        surv12: formData.surv12,
+        surv21: formData.surv21,
+        surv22: formData.surv22,
+      })
+      .then((res) => {
+        toast.success('la epreuves a été ajouté');
+        setRefresh((prev) => (prev = !prev));
+      })
+      .catch((e) => {
+        toast.error(setError(e));
+      });
+  };
+
   const onDelete = (id) => {
-    if (window.confirm('are you sure ?')) {
-      myAxios
-        .delete(`cexEpreuves/${id}`)
-        .then((res) => {
-          toast.success('la session a été supprimée');
-          setRefresh((prev) => (prev = !prev));
-        })
-        .catch((e) => {
-          toast.error(setError(e));
-        });
-    }
+    myAxios
+      .delete(`cexEpreuves/${id}`)
+      .then((res) => {
+        toast.success('la session a été supprimée');
+        setRefresh((prev) => (prev = !prev));
+      })
+      .catch((e) => {
+        toast.error(setError(e));
+      });
   };
   const columns = [
     {
       name: 'anneeDeb',
-      label: 'anneeDeb',
+      label: 'datedebut',
       options: {
         filter: true,
         sort: false,
@@ -46,7 +94,7 @@ const EpreuvesTable = () => {
     },
     {
       name: 'anneeFin',
-      label: 'anneeFin',
+      label: 'dateFin',
       options: {
         filter: true,
         sort: false,
@@ -78,26 +126,58 @@ const EpreuvesTable = () => {
     },
     {
       name: 'codeSalle1',
-      label: 'codeSalle1',
       options: {
         filter: true,
         sort: false,
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return (
+            <select className=' rounded' name='codeSalle1' onChange={onChange}>
+              {salles.map((salle) => (
+                <option value={salle?.id} key={salle?.id}>
+                  {salle?.id}
+                </option>
+              ))}
+            </select>
+          );
+        },
       },
     },
     {
       name: 'codeSalle2',
-      label: 'codeSalle2',
       options: {
         filter: true,
         sort: false,
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return (
+            <select className=' rounded' name='codeSalle2' onChange={onChange}>
+              {salles.map((salle) => (
+                <option value={salle?.id} key={salle?.id}>
+                  {salle?.id}
+                </option>
+              ))}
+            </select>
+          );
+        },
       },
     },
     {
-      name: 'idSeance',
-      label: 'idSeance',
+      name: 'IdSeance',
       options: {
         filter: true,
         sort: false,
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return (
+            <select className=' rounded' name='IdSeance' onChange={onChange}>
+              {seances.map((seance) => (
+                <option value={seance?.idSeance} key={seance?.idSeance}>
+                  {seance?.idSeance}
+                </option>
+              ))}
+
+              <option value=''>1</option>
+            </select>
+          );
+        },
       },
     },
     {
@@ -110,34 +190,86 @@ const EpreuvesTable = () => {
     },
     {
       name: 'surv11',
-      label: 'surv11',
       options: {
         filter: true,
         sort: false,
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return (
+            <select className=' rounded' name='surv11' onChange={onChange}>
+              {surveillants.map((surveillant) => (
+                <option
+                  value={surveillant?.chefDept}
+                  key={surveillant?.chefDept}
+                >
+                  {surveillant?.chefDept}
+                </option>
+              ))}
+            </select>
+          );
+        },
       },
     },
     {
       name: 'surv12',
-      label: 'surv12',
       options: {
         filter: true,
         sort: false,
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return (
+            <select className=' rounded' name='surv12' onChange={onChange}>
+              {surveillants.map((surveillant) => (
+                <option
+                  value={surveillant?.chefDept}
+                  key={surveillant?.chefDept}
+                >
+                  {surveillant?.chefDept}
+                </option>
+              ))}
+            </select>
+          );
+        },
       },
     },
     {
       name: 'surv21',
-      label: 'surv21',
       options: {
         filter: true,
         sort: false,
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return (
+            <select className=' rounded' name='surv21' onChange={onChange}>
+              {surveillants.map((surveillant) => (
+                <option
+                  value={surveillant?.chefDept}
+                  key={surveillant?.chefDept}
+                >
+                  {surveillant?.chefDept}
+                </option>
+              ))}
+            </select>
+          );
+        },
       },
     },
     {
       name: 'surv22',
-      label: 'surv22',
       options: {
         filter: true,
         sort: false,
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return (
+            <select className=' rounded' name='surv22' onChange={onChange}>
+              {surveillants.map((surveillant) => (
+                <option
+                  value={surveillant?.chefDept}
+                  key={surveillant?.chefDept}
+                >
+                  {surveillant?.chefDept}
+                </option>
+              ))}
+            </select>
+          );
+        },
       },
     },
     {
@@ -155,7 +287,7 @@ const EpreuvesTable = () => {
         sort: false,
         customBodyRender: (value, tableMeta, updateValue) => {
           return (
-            <>
+            <div className='d-flex'>
               <Link
                 to={`/epreuves-update/${epreuves[tableMeta.rowIndex].id}`}
                 className='me-2 btn btn-sm btn-info text-white'
@@ -169,7 +301,17 @@ const EpreuvesTable = () => {
               >
                 <FaTrash />
               </Button>
-            </>
+              <Button
+                onClick={() =>
+                  onAdd(epreuves[tableMeta.rowIndex].id, tableMeta.rowIndex)
+                }
+                size='sm'
+                variant='success'
+                className='ms-2'
+              >
+                <HiOutlineFolderAdd />
+              </Button>
+            </div>
           );
         },
       },
@@ -189,6 +331,9 @@ const EpreuvesTable = () => {
 
   useEffect(() => {
     dispatch(getEpreuvesList());
+    dispatch(getAllSalles());
+    dispatch(getSeanceList());
+    dispatch(getSurveillantsList());
   }, [dispatch, refresh]);
 
   return (

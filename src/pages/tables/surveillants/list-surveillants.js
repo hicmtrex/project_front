@@ -5,10 +5,13 @@ import Loader from '../../../components/UI/loader';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getAllSalles } from '../../../store/salles/list-slice';
+import { getSurveillantsList } from '../../../store/surveillants/list-slice';
 
 const ListSurveillants = () => {
   const dispatch = useDispatch();
-  const { salles, loading } = useSelector((state) => state.salleList);
+  const { surveillants, loading } = useSelector(
+    (state) => state.listSurveillantList
+  );
 
   const options = {
     filterType: 'dropdown',
@@ -26,23 +29,23 @@ const ListSurveillants = () => {
 
   const columns = [
     {
-      name: 'adresse',
-      label: 'Adresse',
+      name: 'chefDept',
+      label: 'chefDept',
       options: {
         filter: true,
         sort: false,
       },
     },
     {
-      name: 'bloc',
-      label: 'Bloc',
+      name: 'codeDept',
+      label: 'codeDept',
       options: {
         filter: true,
         sort: false,
       },
     },
     {
-      name: 'disponibilite',
+      name: 'disponibiliteSeances',
       label: 'Disponibilite',
       options: {
         filter: true,
@@ -50,48 +53,48 @@ const ListSurveillants = () => {
       },
     },
     {
-      name: 'etage',
-      label: 'Etage',
-      options: {
-        filter: true,
-        sort: false,
-      },
-    },
-    {
       name: 'etat',
-      label: 'Etat',
+      label: 'etat',
       options: {
         filter: true,
         sort: false,
       },
     },
     {
-      name: 'nbChaisesRangee',
-      label: 'NbChaisesRangee',
+      name: 'libGradeActuelle',
+      label: 'libGradeActuelle',
       options: {
         filter: true,
         sort: false,
       },
     },
     {
-      name: 'nbRangees',
-      label: 'NbRangees',
+      name: 'nomEns',
+      label: 'nomEns',
       options: {
         filter: true,
         sort: false,
       },
     },
     {
-      name: 'salles',
-      label: 'Salles',
+      name: 'sexeEns',
+      label: 'sexeEns',
       options: {
         filter: true,
         sort: false,
       },
     },
     {
-      name: 'typeSalles',
-      label: 'TypeSalles',
+      name: 'typeEns',
+      label: 'typeEns',
+      options: {
+        filter: true,
+        sort: false,
+      },
+    },
+    {
+      name: 'up',
+      label: 'up',
       options: {
         filter: true,
         sort: false,
@@ -100,7 +103,7 @@ const ListSurveillants = () => {
   ];
 
   useEffect(() => {
-    dispatch(getAllSalles());
+    dispatch(getSurveillantsList());
   }, [dispatch]);
 
   return (
@@ -113,7 +116,7 @@ const ListSurveillants = () => {
             <Link to='/surveillants-disponible'>
               Surveillants disponible
             </Link>{' '}
-            <Link to='/surveillants-affectation'>Affectation</Link>
+            {/* <Link to='/surveillants-affectation'>Affectation</Link> */}
           </div>
         </div>
       </div>
@@ -126,7 +129,7 @@ const ListSurveillants = () => {
               <span> liste</span> des Surveillants
             </h2>
           }
-          data={salles}
+          data={surveillants}
           columns={columns}
           options={options}
         />

@@ -138,7 +138,7 @@ const EpreuveForm = ({ handleClose, show, setRefresh }) => {
         </Form.Group>
 
         <Form.Group controlId='surv11'>
-          <Form.Label>surv11</Form.Label>
+          <Form.Label>surveillant 1</Form.Label>
           <Form.Control
             {...register('surv11')}
             className={errors.surv11?.message && 'is-invalid'}
@@ -147,7 +147,7 @@ const EpreuveForm = ({ handleClose, show, setRefresh }) => {
           <p className='invalid-feedback'>{errors.surv11?.message}</p>
         </Form.Group>
         <Form.Group controlId='surv12'>
-          <Form.Label>surv12</Form.Label>
+          <Form.Label>surveillant 2</Form.Label>
           <Form.Control
             {...register('surv12')}
             className={errors.surv12?.message && 'is-invalid'}
@@ -156,7 +156,7 @@ const EpreuveForm = ({ handleClose, show, setRefresh }) => {
           <p className='invalid-feedback'>{errors.surv12?.message}</p>
         </Form.Group>
         <Form.Group controlId='surv21'>
-          <Form.Label>surv21</Form.Label>
+          <Form.Label>surveillant 3</Form.Label>
           <Form.Control
             {...register('surv21')}
             className={errors.surv21?.message && 'is-invalid'}
@@ -165,7 +165,7 @@ const EpreuveForm = ({ handleClose, show, setRefresh }) => {
           <p className='invalid-feedback'>{errors.surv21?.message}</p>
         </Form.Group>
         <Form.Group controlId='surv22'>
-          <Form.Label>surv22</Form.Label>
+          <Form.Label>surveillant 4</Form.Label>
           <Form.Control
             {...register('surv22')}
             className={errors.surv22?.message && 'is-invalid'}

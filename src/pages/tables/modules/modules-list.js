@@ -52,11 +52,7 @@ const ModulesTable = () => {
         <Loader />
       ) : (
         <MUIDataTable
-          title={
-            <h1>
-              <span className='text-danger'> liste</span> des modules
-            </h1>
-          }
+          title={<h1>liste des modules</h1>}
           data={modules}
           columns={columns}
           options={options}

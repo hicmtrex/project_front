@@ -94,11 +94,11 @@ const Sidebar = () => {
               </Link>
             </li>
 
-            <li className='nav-item '>
+            {/* <li className='nav-item '>
               <Link className='nav-link p-5' to='/department'>
                 <FaUserTie className='me-2' size={'1.5rem'} /> Department
               </Link>
-            </li>
+            </li> */}
             <li className='nav-item '>
               <Link className='nav-link p-5' to='/session'>
                 <GiTeacher className='me-2' size={'1.5rem'} /> Session
@@ -124,11 +124,11 @@ const Sidebar = () => {
                 <ImUserTie className='me-2' size={'1.5rem'} /> Epreuves
               </Link>
             </li>
-            <li className='nav-item '>
+            {/* <li className='nav-item '>
               <Link className='nav-link p-5' to='/planification'>
                 <FaUserTie className='me-2' size={'1.5rem'} /> Planification
               </Link>
-            </li>
+            </li> */}
             <li className='nav-item '>
               <Link className='nav-link p-5' to='/salle'>
                 <FaUserTie className='me-2' size={'1.5rem'} /> Salles

@@ -59,11 +59,19 @@ const SeanceTable = () => {
       },
     },
     {
-      name: 'dateSeance',
-      label: 'dateSeance',
+      name: 'DateSeance',
       options: {
         filter: true,
         sort: false,
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return (
+            <>
+              {new Date(
+                seances[tableMeta.rowIndex].dateSeance
+              ).toLocaleDateString('en')}
+            </>
+          );
+        },
       },
     },
     {
@@ -75,11 +83,19 @@ const SeanceTable = () => {
       },
     },
     {
-      name: 'jour',
-      label: 'jour',
+      name: 'Jour',
       options: {
         filter: true,
         sort: false,
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return (
+            <>
+              {new Date(
+                seances[tableMeta.rowIndex].dateSeance
+              ).toLocaleTimeString('en')}
+            </>
+          );
+        },
       },
     },
     {

@@ -98,7 +98,7 @@ const DepartmentForm = ({ handleClose, show }) => {
           className='mt-3 w-full  bg-red-600 text-white'
           variant=''
         >
-          Submit
+          Ajouter
         </Button>
       </Form>
     </AddDepartment>

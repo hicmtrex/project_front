@@ -4,19 +4,19 @@ import { myAxios } from '../../utils/axios';
 import { setError } from '../../utils/help-api';
 
 const initialState = {
-  surveillants: [],
+  planifications: [],
   loading: false,
   error: null,
 };
 
 /**
- * get all surveillants
+ * get all departments
  */
-export const getSurveillantsList = createAsyncThunk(
-  'get/surveillants',
+export const getPlanificationList = createAsyncThunk(
+  'get/planifications',
   async (thunkAPI) => {
     try {
-      const res = await myAxios.get('/cexSurveillantDisponibles');
+      const res = await myAxios.get('/planificationEpreuve');
       if (res.data) {
         return res.data;
       }
@@ -28,24 +28,25 @@ export const getSurveillantsList = createAsyncThunk(
   }
 );
 
-const listSurveillantListSlice = createSlice({
-  name: 'surveillants-list',
+const planificationSListSlice = createSlice({
+  name: 'planifications-list',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getSurveillantsList.pending, (state) => {
+      .addCase(getPlanificationList.pending, (state) => {
+        state.modules = [];
         state.loading = true;
       })
-      .addCase(getSurveillantsList.fulfilled, (state, action) => {
+      .addCase(getPlanificationList.fulfilled, (state, action) => {
         state.loading = false;
-        state.surveillants = action.payload;
+        state.planifications = action.payload;
       })
-      .addCase(getSurveillantsList.rejected, (state, action) => {
+      .addCase(getPlanificationList.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });
   },
 });
 
-export default listSurveillantListSlice;
+export default planificationSListSlice;

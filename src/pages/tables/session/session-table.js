@@ -80,14 +80,6 @@ const SessionTable = () => {
       },
     },
     {
-      name: 'classesCibles',
-      label: 'ClassesCibles',
-      options: {
-        filter: true,
-        sort: false,
-      },
-    },
-    {
       name: 'libelleSession',
       label: 'LibelleSession',
       options: {

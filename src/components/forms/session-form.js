@@ -48,7 +48,7 @@ const SessionForm = ({ handleClose, show }) => {
     >
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Form.Group>
-          <Form.Label>anneeDeb</Form.Label>
+          <Form.Label>date debut</Form.Label>
           <Form.Control
             type='date'
             placeholder='anneeDeb'
@@ -59,7 +59,7 @@ const SessionForm = ({ handleClose, show }) => {
         </Form.Group>
 
         <Form.Group>
-          <Form.Label>anneeFin</Form.Label>
+          <Form.Label>date fin</Form.Label>
           <Form.Control
             type='date'
             placeholder='anneeFin'
@@ -70,60 +70,45 @@ const SessionForm = ({ handleClose, show }) => {
         </Form.Group>
 
         <Form.Group>
-          <Form.Label>ClassesCibles</Form.Label>
-          <Form.Control
-            type='text'
-            placeholder='ClassesCibles'
-            {...register('classesCibles')}
-            className={errors.classesCibles?.message && 'is-invalid'}
-          />
-          <p className='invalid-feedback'>{errors.classesCibles?.message}</p>
-        </Form.Group>
-
-        <Form.Group>
           <Form.Label>sessions</Form.Label>
-          <Form.Control
-            type='text'
-            placeholder='sessions'
+          <Form.Select
             {...register('sessions')}
             className={errors.sessions?.message && 'is-invalid'}
-          />
+          >
+            <option value={1}>1</option>
+            <option value={2}>2</option>
+            <option value={3}>3</option>
+            <option value={4}>4</option>
+            <option value={5}>5</option>
+            <option value={6}>6</option>
+            <option value={7}>7</option>
+          </Form.Select>
           <p className='invalid-feedback'>{errors.sessions?.message}</p>
         </Form.Group>
 
         <Form.Group>
           <Form.Label>semestre</Form.Label>
-          <Form.Control
-            type='text'
-            placeholder='semestre'
+          <Form.Select
             {...register('semestre')}
             className={errors.semestre?.message && 'is-invalid'}
-          />
+          >
+            <option value={1}>1</option>
+            <option value={2}>2</option>
+          </Form.Select>
           <p className='invalid-feedback'>{errors.semestre?.message}</p>
         </Form.Group>
 
         <Form.Group>
           <Form.Label>periode</Form.Label>
-          <Form.Control
-            type='text'
-            placeholder='periode'
+          <Form.Select
             {...register('periode')}
             className={errors.periode?.message && 'is-invalid'}
-          />
+          >
+            <option value={1}>1</option>
+            <option value={2}>2</option>
+          </Form.Select>
           <p className='invalid-feedback'>{errors.periode?.message}</p>
         </Form.Group>
-
-        <Form.Group>
-          <Form.Label>classesClibles</Form.Label>
-          <Form.Control
-            type='text'
-            placeholder='classesClibles'
-            {...register('classesClibles')}
-            className={errors.classesClibles?.message && 'is-invalid'}
-          />
-          <p className='invalid-feedback'>{errors.classesClibles?.message}</p>
-        </Form.Group>
-
         <Form.Group>
           <Form.Label>libelleSession</Form.Label>
           <Form.Control
@@ -140,7 +125,7 @@ const SessionForm = ({ handleClose, show }) => {
           className='mt-3 w-full  bg-red-600 text-white'
           variant=''
         >
-          Submit
+          Ajouter
         </Button>
       </Form>
     </AddDepartment>
