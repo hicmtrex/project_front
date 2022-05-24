@@ -42,9 +42,9 @@ const Login = () => {
       <div className='d-flex justify-content-center'>
         <div className='col-lg-5 col-xl-4 p-12 p-xl-20 position-fixed start-0 top-0 h-screen overflow-y-hidden bg-red-600 d-none d-lg-flex flex-column'>
           {/* Logo */}
-          <a className='d-block' href='#'>
+          <Link className='d-block' to='#'>
             <img src='/images/logo.png' className='h-18' alt='...' />
-          </a>
+          </Link>
           {/* Title */}
           <div className='mt-32 mb-20'>
             <h1 className='ls-tight font-bolder display-6 text-white mb-5'>
@@ -114,7 +114,7 @@ const Login = () => {
               </div>
               <div className='row'>
                 <div className='col-sm-6'>
-                  <a href='#' className='btn btn-neutral w-full'>
+                  <Link to='#' className='btn btn-neutral w-full'>
                     <span className='icon icon-sm pe-2'>
                       <svg
                         width={24}
@@ -186,10 +186,10 @@ const Login = () => {
                       </svg>
                     </span>
                     Github
-                  </a>
+                  </Link>
                 </div>
                 <div className='col-sm-6'>
-                  <a href='#' className='btn btn-neutral w-full'>
+                  <Link to='#' className='btn btn-neutral w-full'>
                     <span className='icon icon-sm pe-2'>
                       <svg
                         width={24}
@@ -267,7 +267,7 @@ const Login = () => {
                       </svg>
                     </span>
                     Google
-                  </a>
+                  </Link>
                 </div>
               </div>
               <div className='my-6'>

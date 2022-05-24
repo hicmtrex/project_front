@@ -12,10 +12,10 @@ import { myAxios } from '../../../utils/axios';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { setError } from '../../../utils/help-api';
-import EpreuveForm from '../../../components/forms/epreuve-form';
 import { getAllSalles } from '../../../store/salles/list-slice';
 import { getSeanceList } from '../../../store/seance/list-seance';
 import { getSurveillantsList } from '../../../store/surveillants/list-slice';
+import EpreuveForm from '../../../components/forms/epreuve-form';
 
 const EpreuvesTable = () => {
   const dispatch = useDispatch();
@@ -25,9 +25,9 @@ const EpreuvesTable = () => {
   const { surveillants } = useSelector((state) => state.listSurveillantList);
 
   const [refresh, setRefresh] = useState(false);
-  const [show, setShow] = useState(false);
-  const handleShow = () => setShow(true);
-  const handleClose = () => setShow(false);
+  const [showEp, setShow] = useState(false);
+  const handleShowEp = () => setShow(true);
+  const handleCloseEp = () => setShow(false);
 
   const [formData, setFormData] = useState({
     codeSalle1: '',
@@ -85,21 +85,38 @@ const EpreuvesTable = () => {
   };
   const columns = [
     {
-      name: 'anneeDeb',
-      label: 'datedebut',
+      name: 'datedebut',
       options: {
         filter: true,
         sort: false,
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return (
+            <>
+              {new Date(
+                epreuves[tableMeta.rowIndex]?.anneeDeb
+              ).toLocaleDateString('en')}
+            </>
+          );
+        },
       },
     },
     {
       name: 'anneeFin',
-      label: 'dateFin',
       options: {
         filter: true,
         sort: false,
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return (
+            <>
+              {new Date(
+                epreuves[tableMeta.rowIndex]?.anneeFin
+              ).toLocaleDateString('en')}
+            </>
+          );
+        },
       },
     },
+
     {
       name: 'codeCl',
       label: 'codeCl',
@@ -338,11 +355,19 @@ const EpreuvesTable = () => {
 
   return (
     <DashboardLayout>
+      <div id='topnavbar'>
+        <div className='topnav '>
+          <div className='d-flex px-1 '>
+            <Link to='/epreuves'>List des epreuves</Link>
+            <Link to='/calendrier'>Calendrier</Link>
+          </div>
+        </div>
+      </div>
       <Card.Header className='card-header d-flex  justify-content-between'>
         <h5 className='mb-0 text-white'></h5>
         <h6>
           <Button
-            onClick={handleShow}
+            onClick={handleShowEp}
             variant=''
             className='bg-red-600 text-white'
             size='sm'
@@ -362,8 +387,8 @@ const EpreuvesTable = () => {
         />
       )}
       <EpreuveForm
-        show={show}
-        handleClose={handleClose}
+        showEp={showEp}
+        handleCloseEp={handleCloseEp}
         setRefresh={setRefresh}
       />
     </DashboardLayout>

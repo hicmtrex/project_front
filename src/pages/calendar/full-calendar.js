@@ -7,6 +7,9 @@ import format from 'date-fns/format';
 import getDay from 'date-fns/getDay';
 import parse from 'date-fns/parse';
 import startOfWeek from 'date-fns/startOfWeek';
+import DashboardLayout from '../../components/layouts/dashboard-layout';
+import { Link } from 'react-router-dom';
+import { Card } from 'react-bootstrap';
 
 const locales = {
   'en-US': require('date-fns/locale/en-US'),
@@ -45,7 +48,15 @@ const FulCalendar = () => {
   }
 
   return (
-    <>
+    <DashboardLayout>
+      <div id='topnavbar'>
+        <div className='topnav '>
+          <div className='d-flex px-1 '>
+            <Link to='/epreuves'>List des epreuves</Link>
+            <Link to='/calendrier'>Calendrier</Link>
+          </div>
+        </div>
+      </div>
       <div className='App'>
         <input
           type='text'
@@ -69,14 +80,18 @@ const FulCalendar = () => {
           Add Event
         </button>
       </div>
-      <Calendar
-        localizer={localizer}
-        events={allEvents}
-        startAccessor='start'
-        endAccessor='end'
-        style={{ height: 500 }}
-      />
-    </>
+      <Card className='shadow'>
+        <Card.Body>
+          <Calendar
+            localizer={localizer}
+            events={allEvents}
+            startAccessor='start'
+            endAccessor='end'
+            style={{ height: 500 }}
+          />
+        </Card.Body>
+      </Card>
+    </DashboardLayout>
   );
 };
 

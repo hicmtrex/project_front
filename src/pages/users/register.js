@@ -118,7 +118,7 @@ const Register = () => {
               </div>
               <div className='row'>
                 <div className='col-sm-6'>
-                  <a href='#' className='btn btn-neutral w-full'>
+                  <Link to='#' className='btn btn-neutral w-full'>
                     <span className='icon icon-sm pe-2'>
                       <svg
                         width={24}
@@ -190,10 +190,10 @@ const Register = () => {
                       </svg>
                     </span>
                     Github
-                  </a>
+                  </Link>
                 </div>
                 <div className='col-sm-6'>
-                  <a href='#' className='btn btn-neutral w-full'>
+                  <Link to='#' className='btn btn-neutral w-full'>
                     <span className='icon icon-sm pe-2'>
                       <svg
                         width={24}
@@ -271,7 +271,7 @@ const Register = () => {
                       </svg>
                     </span>
                     Google
-                  </a>
+                  </Link>
                 </div>
               </div>
               <div className='my-6'>

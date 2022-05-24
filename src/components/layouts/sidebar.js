@@ -1,12 +1,11 @@
 import { signOut } from 'firebase/auth';
 import React from 'react';
 import { Nav, Image, Container, Button, Navbar } from 'react-bootstrap';
-import { AiFillHome, AiFillDashboard } from 'react-icons/ai';
+import { AiFillHome } from 'react-icons/ai';
 import { FaUserTie } from 'react-icons/fa';
 import { GiTeacher } from 'react-icons/gi';
 import { ImUserTie } from 'react-icons/im';
 import { useDispatch } from 'react-redux';
-
 import { Link } from 'react-router-dom';
 import auth from '../../firebase/config';
 import { userLogout } from '../../store/users/login-slice';
@@ -37,9 +36,9 @@ const Sidebar = () => {
         >
           <span className='navbar-toggler-icon' />
         </Button>
-        <a
+        <Link
           className='navbar-brand py-lg-2 mb-lg-5 px-lg-6 me-0 d-flex align-items-center'
-          href='/'
+          to='/'
         >
           <Image
             fluid
@@ -47,11 +46,11 @@ const Sidebar = () => {
             alt='logo'
             style={{ height: '50px' }}
           />
-        </a>
+        </Link>
         <div className='navbar-user d-lg-none'>
           <div className='dropdown'>
-            <a
-              href='#'
+            <Link
+              to='#'
               id='sidebarAvatar'
               role='button'
               data-bs-toggle='dropdown'
@@ -66,22 +65,22 @@ const Sidebar = () => {
                 />
                 <span className='avatar-child avatar-badge bg-success' />
               </div>
-            </a>
+            </Link>
             <div
               className='dropdown-menu dropdown-menu-end'
               aria-labelledby='sidebarAvatar'
             >
-              <a href='/' className='dropdown-item'>
+              <Link to='/' className='dropdown-item'>
                 Profile
-              </a>
-              <a href='#' className='dropdown-item'>
+              </Link>
+              <Link to='#' className='dropdown-item'>
                 Paramètres
-              </a>
+              </Link>
             </div>
           </div>{' '}
-          <a href='#' className='dropdown-item'>
+          <Link to='#' className='dropdown-item'>
             Facturation
-          </a>
+          </Link>
           <hr className='dropdown-divider' />{' '}
           <button className='dropdown-item'>Se déconnecter</button>
         </div>
@@ -146,11 +145,11 @@ const Sidebar = () => {
           <div className='' />
           <ul className='navbar-nav'>
             <li className='nav-item'>
-              <a href='/stages/profile'>
+              <Link to='/stages/profile'>
                 <Nav.Link>
                   <i className='bi bi-person-square' /> Mon Compte
                 </Nav.Link>
-              </a>
+              </Link>
             </li>
             <li className='nav-item'>
               <Nav.Link onClick={() => dispatch(onLogout)}>

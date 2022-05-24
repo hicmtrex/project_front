@@ -12,15 +12,15 @@ import { useNavigate } from 'react-router-dom';
 //form validation with use form hook && yup
 const schema = yup
   .object({
-    // anneeDeb: yup.string().required(),
-    // anneeFin: yup.string().required(),
+    anneeDeb: yup.date().required(),
+    anneeFin: yup.date().required(),
     codeCl: yup.string().required(),
     codeModule: yup.string().required(),
     dsex: yup.string().required(),
     codeSalle1: yup.string().required(),
     codeSalle2: yup.string().required(),
-    idSeance: yup.string().required(),
-    idSession: yup.string().required(),
+    idSeance: yup.number().required(),
+    idSession: yup.number().required(),
     surv11: yup.string().required(),
     surv12: yup.string().required(),
     surv21: yup.string().required(),
@@ -29,7 +29,7 @@ const schema = yup
   })
   .required();
 
-const EpreuveForm = ({ handleClose, show, setRefresh }) => {
+const EpreuveForm = ({ handleCloseEp, showEp, setRefresh }) => {
   const navigate = useNavigate();
   const {
     register,
@@ -45,7 +45,7 @@ const EpreuveForm = ({ handleClose, show, setRefresh }) => {
       .post(`/cexEpreuves`, epreuve)
       .then((res) => {
         toast.success('epreuves has been created');
-        handleClose();
+        handleCloseEp();
         reset();
         navigate('/epreuves');
         setRefresh((prev) => (prev = !prev));
@@ -56,18 +56,36 @@ const EpreuveForm = ({ handleClose, show, setRefresh }) => {
   const onSubmit = (data) => {
     onUpdate({
       ...data,
-      id: Math.floor(Math.random() * 100),
-      anneeDeb: Math.floor(Math.random() * 100).toString(),
-      anneeFin: Math.floor(Math.random() * 100).toString(),
+      idEpreuve: Math.floor(Math.random() * 100),
     });
   };
   return (
     <AddDepartment
-      handleClose={handleClose}
-      show={show}
-      title='Ajouter une Department'
+      handleClose={handleCloseEp}
+      show={showEp}
+      title='Ajouter une Epreuve'
     >
       <Form onSubmit={handleSubmit(onSubmit)}>
+        <Form.Group controlId='anneeDeb'>
+          <Form.Label>anneeDeb</Form.Label>
+          <Form.Control
+            type='date'
+            {...register('anneeDeb')}
+            className={errors.anneeDeb?.message && 'is-invalid'}
+          />
+
+          <p className='invalid-feedback'>{errors.anneeDeb?.message}</p>
+        </Form.Group>
+        <Form.Group controlId='anneeFin'>
+          <Form.Label>anneeFin</Form.Label>
+          <Form.Control
+            type='date'
+            {...register('anneeFin')}
+            className={errors.anneeDeb?.message && 'is-invalid'}
+          />
+
+          <p className='invalid-feedback'>{errors.anneeFin?.message}</p>
+        </Form.Group>
         <Form.Group controlId='codeCl'>
           <Form.Label>codeCl</Form.Label>
           <Form.Control
@@ -120,6 +138,7 @@ const EpreuveForm = ({ handleClose, show, setRefresh }) => {
         <Form.Group controlId='idSeance'>
           <Form.Label>idSeance</Form.Label>
           <Form.Control
+            type='number'
             {...register('idSeance')}
             className={errors.idSeance?.message && 'is-invalid'}
           />
@@ -130,6 +149,7 @@ const EpreuveForm = ({ handleClose, show, setRefresh }) => {
         <Form.Group controlId='idSession'>
           <Form.Label>idSession</Form.Label>
           <Form.Control
+            type='number'
             {...register('idSession')}
             className={errors.idSession?.message && 'is-invalid'}
           />

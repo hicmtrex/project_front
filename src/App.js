@@ -1,5 +1,6 @@
 import { Toaster } from 'react-hot-toast';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import FulCalendar from './pages/calendar/full-calendar';
 import HomePage from './pages/home';
 import ClassesTable from './pages/tables/classes/classes-table';
 import DepartmentTable from './pages/tables/department/department-table';
@@ -32,6 +33,7 @@ const App = () => {
         <Route path='/salles-disponible' element={<SallesDisponibles />} />
         <Route path='/salle-affectation' element={<SallesAffectation />} />
         <Route path='/surveillants' element={<ListSurveillants />} />
+        <Route path='/calendrier' element={<FulCalendar />} />
         <Route
           path='/surveillants-affectation'
           element={<SurveillantAffectationTable />}

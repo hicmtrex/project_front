@@ -1,17 +1,17 @@
 import React from 'react';
-import { Card, Col, Container, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
-const FormContainer = ({ children }) => {
+const FormContainer = () => {
   return (
     <div className='card'>
       <div className='text-center intro'>
-        <img src='https://i.imgur.com/uNiv4bD.png' width={160} />
+        <img src='https://i.imgur.com/uNiv4bD.png' alt='img' width={160} />
         <span className='d-block account'>Don't have account yet?</span>
         <span className='contact'>
           Contact us at{' '}
-          <a href className='mail'>
+          <Link to='#' className='mail'>
             contact@bbbootstrap.com
-          </a>{' '}
+          </Link>{' '}
           and <br /> we will take care of everything
         </span>
       </div>
@@ -50,9 +50,9 @@ const FormContainer = ({ children }) => {
           </label>
         </div>
         <div>
-          <a href='#' className='forgot'>
+          <Link to='#' className='forgot'>
             Forgot Password?
-          </a>
+          </Link>
         </div>
       </div>
       <div className='mt-2'>

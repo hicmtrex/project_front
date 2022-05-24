@@ -44,20 +44,28 @@ const SeanceTable = () => {
   const columns = [
     {
       name: 'idSeance',
-      label: 'IdSeance',
+      label: 'Seance',
       options: {
         filter: true,
         sort: false,
       },
     },
     {
-      name: 'classesCibles',
-      label: 'classesCibles',
+      name: 'sessions',
+      label: 'Sessions',
       options: {
         filter: true,
         sort: false,
       },
     },
+    {
+      name: 'jour',
+      options: {
+        filter: true,
+        sort: false,
+      },
+    },
+
     {
       name: 'DateSeance',
       options: {
@@ -76,42 +84,19 @@ const SeanceTable = () => {
     },
     {
       name: 'hDeb',
-      label: 'hDeb',
-      options: {
-        filter: true,
-        sort: false,
-      },
-    },
-    {
-      name: 'Jour',
+      label: 'heure Début',
       options: {
         filter: true,
         sort: false,
         customBodyRender: (value, tableMeta, updateValue) => {
           return (
             <>
-              {new Date(
-                seances[tableMeta.rowIndex].dateSeance
-              ).toLocaleTimeString('en')}
+              {new Date(seances[tableMeta.rowIndex].hDeb).toLocaleTimeString(
+                'en'
+              )}
             </>
           );
         },
-      },
-    },
-    {
-      name: 'sessions',
-      label: 'sessions',
-      options: {
-        filter: true,
-        sort: false,
-      },
-    },
-    {
-      name: 'seance',
-      label: 'seance',
-      options: {
-        filter: true,
-        sort: false,
       },
     },
   ];

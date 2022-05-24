@@ -49,12 +49,12 @@ const Topbar = () => {
                     className='dropdown-menu dropdown-menu-end'
                     aria-labelledby='sidebarAvatar'
                   >
-                    <a href='/' className='dropdown-item'>
+                    <Link to='/' className='dropdown-item'>
                       Profile
-                    </a>
-                    <a href='#' className='dropdown-item'>
+                    </Link>
+                    <Link to='#' className='dropdown-item'>
                       Paramètres
-                    </a>
+                    </Link>
                     <Link
                       to='#'
                       className='dropdown-item'
