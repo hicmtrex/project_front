@@ -10,6 +10,7 @@ import toast from 'react-hot-toast';
 import { Button, Card } from 'react-bootstrap';
 import SessionForm from '../../../components/forms/session-form';
 import { FaEdit, FaTrash } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const SessionTable = () => {
   const { sessions, loading } = useSelector((state) => state.listSession);
@@ -95,9 +96,12 @@ const SessionTable = () => {
         customBodyRender: (value, tableMeta, updateValue) => {
           return (
             <>
-              <Button className='me-2' size='sm'>
+              <Link
+                to={`/session-update/${sessions[tableMeta.rowIndex].id}`}
+                className='me-2 btn-primary btn-sm'
+              >
                 <FaEdit />
-              </Button>
+              </Link>
               <Button
                 onClick={() => {
                   if (window.confirm('are you sure ?')) {

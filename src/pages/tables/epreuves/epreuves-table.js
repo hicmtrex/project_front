@@ -16,6 +16,9 @@ import { getAllSalles } from '../../../store/salles/list-slice';
 import { getSeanceList } from '../../../store/seance/list-seance';
 import { getSurveillantsList } from '../../../store/surveillants/list-slice';
 import EpreuveForm from '../../../components/forms/epreuve-form';
+import { getModulesList } from '../../../store/modules/list-slice';
+import { saveEvent } from '../../../store/events/list-slice';
+import { staticEvnts } from '../../calendar/events';
 
 const EpreuvesTable = () => {
   const dispatch = useDispatch();
@@ -23,6 +26,9 @@ const EpreuvesTable = () => {
   const { salles } = useSelector((state) => state.salleList);
   const { seances } = useSelector((state) => state.listSeance);
   const { surveillants } = useSelector((state) => state.listSurveillantList);
+  const { modules, loading: loadingModule } = useSelector(
+    (state) => state.modulesList
+  );
 
   const [refresh, setRefresh] = useState(false);
   const [showEp, setShow] = useState(false);
@@ -47,6 +53,7 @@ const EpreuvesTable = () => {
   };
 
   const onAdd = (id, index) => {
+    dispatch(saveEvent(staticEvnts));
     myAxios
       .put(`cexEpreuves/${id}`, {
         codeCl: epreuves[index].codeCl,
@@ -83,6 +90,7 @@ const EpreuvesTable = () => {
         toast.error(setError(e));
       });
   };
+
   const columns = [
     {
       name: 'datedebut',
@@ -351,6 +359,7 @@ const EpreuvesTable = () => {
     dispatch(getAllSalles());
     dispatch(getSeanceList());
     dispatch(getSurveillantsList());
+    dispatch(getModulesList());
   }, [dispatch, refresh]);
 
   return (
@@ -359,7 +368,8 @@ const EpreuvesTable = () => {
         <div className='topnav '>
           <div className='d-flex px-1 '>
             <Link to='/epreuves'>List des epreuves</Link>
-            <Link to='/calendrier'>Calendrier</Link>
+            <Link to={`/calendrier/${1}`}>Calendrier</Link>
+            <Link to='/admin-calendrier'>Admin-Calendrier</Link>
           </div>
         </div>
       </div>

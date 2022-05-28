@@ -38,6 +38,13 @@ ul#navbar-items li {
   display: flex;
   align-items: center;
 }
+.rbc-row-segment {
+  font-size: 12px;
+}
+
+.rbc-event:nth-of-type(1) {
+  margin-bottom: 5px;
+}
 
 @media (max-width: 780px) {
   #navbar {

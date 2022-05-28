@@ -55,9 +55,7 @@ const ClassesTable = () => {
         <MUIDataTable
           title={
             <h1>
-              <em>
-                <span className=''> liste</span> des classes
-              </em>
+              <span className=''> liste</span> des classes
             </h1>
           }
           data={classes}

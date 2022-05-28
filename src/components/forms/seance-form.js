@@ -11,11 +11,11 @@ import { createSeance } from '../../store/seance/create-slice';
 const schema = yup
   .object({
     classesCibles: yup.string().required(),
-    dateSeance: yup.string().required(),
-    jour: yup.number().required(),
+    dateSeance: yup.date().required(),
+    jour: yup.string().required(),
     hDeb: yup.string().required(),
     sessions: yup.string().required(),
-    seance: yup.string().required(),
+    idSeance: yup.string().required(),
   })
   .required();
 
@@ -61,8 +61,8 @@ const SeanceForm = ({ handleClose, show }) => {
         <Form.Group>
           <Form.Label>Date Seance</Form.Label>
           <Form.Control
-            type='text'
-            placeholder='Code Departement'
+            type='date'
+            placeholder='Date Seance'
             {...register('dateSeance')}
             className={errors.dateSeance?.message && 'is-invalid'}
           />
@@ -72,7 +72,7 @@ const SeanceForm = ({ handleClose, show }) => {
         <Form.Group>
           <Form.Label>Hdeb</Form.Label>
           <Form.Control
-            type='text'
+            type='time'
             placeholder='hDeb'
             {...register('hDeb')}
             className={errors.hDeb?.message && 'is-invalid'}
@@ -82,11 +82,18 @@ const SeanceForm = ({ handleClose, show }) => {
 
         <Form.Group>
           <Form.Label>Jour</Form.Label>
-          <Form.Control
-            placeholder='jour'
+          <Form.Select
+            defaultValue={'lundi'}
             {...register('jour')}
             className={errors.jour?.message && 'is-invalid'}
-          />
+          >
+            <option value='lundi'>lundi</option>
+            <option value='mardi'>mardi</option>
+            <option value='mercredi'>mercredi</option>
+            <option value='jeudi'>jeudi</option>
+            <option value='vendredi'>vendredi</option>
+            <option value='samedi'>samedi</option>
+          </Form.Select>
           <p className='invalid-feedback'>{errors.jour?.message}</p>
         </Form.Group>
         <Form.Group>
@@ -110,11 +117,11 @@ const SeanceForm = ({ handleClose, show }) => {
           <Form.Label>Seance</Form.Label>
           <Form.Control
             type='text'
-            placeholder='Code Departement'
-            {...register('seance')}
-            className={errors.seance?.message && 'is-invalid'}
+            placeholder='Seance'
+            {...register('idSeance')}
+            className={errors.idSeance?.message && 'is-invalid'}
           />
-          <p className='invalid-feedback'>{errors.seance?.message}</p>
+          <p className='invalid-feedback'>{errors.idSeance?.message}</p>
         </Form.Group>
 
         <Button

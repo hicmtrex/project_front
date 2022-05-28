@@ -9,12 +9,15 @@ import { Button, Card } from 'react-bootstrap';
 import { myAxios } from '../../../utils/axios';
 import toast from 'react-hot-toast';
 import { setError } from '../../../utils/help-api';
+import { Link } from 'react-router-dom';
+import { FaEdit, FaTrash } from 'react-icons/fa';
 
 const SeanceTable = () => {
   const { seances, loading } = useSelector((state) => state.listSeance);
   const { refresh } = useSelector((state) => state.createSeance);
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
+  const [reload, setReload] = useState(false);
 
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
@@ -22,23 +25,10 @@ const SeanceTable = () => {
   const options = {
     filterType: 'dropdown',
     responsive: 'standard',
-    print: false,
     rowHover: true,
-    download: false,
-    selectableRowsOnClick: true,
+    jumpToPage: true,
+    selectableRowsOnClick: false,
     selectableRowsHideCheckboxes: true,
-    onRowsDelete: (rowsDeleted, dataRows) => {
-      const idsToDelete = rowsDeleted.data.map((d) => seances[d.dataIndex].id); // array of all ids to to be deleted
-
-      myAxios
-        .delete(`/cexSeances/${idsToDelete[0]}`)
-        .then((res) => {
-          toast.success('la seance a été supprimée');
-        })
-        .catch((e) => {
-          toast.error(setError(e));
-        });
-    },
   };
 
   const columns = [
@@ -99,11 +89,49 @@ const SeanceTable = () => {
         },
       },
     },
+    {
+      name: 'Actions',
+      options: {
+        filter: true,
+        sort: false,
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return (
+            <>
+              <Link
+                to={`/seance-update/${seances[tableMeta.rowIndex].id}`}
+                className='me-2 btn-primary btn-sm'
+              >
+                <FaEdit />
+              </Link>
+              <Button
+                onClick={() => {
+                  if (window.confirm('are you sure ?')) {
+                    myAxios
+                      .delete(`cexSeances/${seances[tableMeta.rowIndex].id}`)
+                      .then((res) => {
+                        toast.success('la seance a été supprimée');
+                        setReload((prev) => (prev = !prev));
+                      })
+                      .catch((e) => {
+                        toast.error(setError(e));
+                      });
+                  }
+                }}
+                size='sm'
+                variant='danger'
+              >
+                <FaTrash />
+              </Button>
+            </>
+          );
+        },
+      },
+    },
   ];
 
   useEffect(() => {
     dispatch(getSeanceList());
-  }, [dispatch, refresh]);
+  }, [dispatch, refresh, reload]);
 
   return (
     <DashboardLayout>

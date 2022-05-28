@@ -1,18 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Row, Col, Card } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
-
-import { useNavigate } from 'react-router-dom';
 import DashboardLayout from '../components/layouts/dashboard-layout';
 
 const HomePage = () => {
-  const navigate = useNavigate();
-  const { userInfo } = useSelector((state) => state.login);
-
-  // useEffect(() => {
-  //   if (!userInfo) navigate('/login');
-  // }, [userInfo]);
-
   return (
     <DashboardLayout>
       <Row className='g-6 mb-6'>

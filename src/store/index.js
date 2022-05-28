@@ -7,6 +7,8 @@ import deleteDepartmentSlice from './department/delete-slice';
 import departmentDetailsSlice from './department/department-details';
 import departmentListSlice from './department/department-list';
 import epreuvesListSlice from './epreuves/list-slice';
+import eventDetailsSlice from './events/event-detail';
+import eventListSlice from './events/list-slice';
 import modulesListSlice from './modules/list-slice';
 import planificationSListSlice from './planification/list-slice';
 import getDispoSallesSlice from './salles/dispoSalles-list';
@@ -43,6 +45,9 @@ const reducers = combineReducers({
   planificationSList: planificationSListSlice.reducer,
   //surveillants
   listSurveillantList: listSurveillantListSlice.reducer,
+  //events
+  eventList: eventListSlice.reducer,
+  eventDetails: eventDetailsSlice.reducer,
 });
 
 const persistConfig = {
@@ -55,6 +60,11 @@ const persistedReducer = persistReducer(persistConfig, reducers);
 
 export const store = configureStore({
   reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      thunk: {},
+      serializableCheck: false,
+    }),
 });
 
 export const persistor = persistStore(store);

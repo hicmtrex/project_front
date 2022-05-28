@@ -1,63 +1,76 @@
-import React, { useState } from 'react';
-import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
+import React from 'react';
+import { Calendar, momentLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import format from 'date-fns/format';
-import getDay from 'date-fns/getDay';
-import parse from 'date-fns/parse';
-import startOfWeek from 'date-fns/startOfWeek';
 import DashboardLayout from '../../components/layouts/dashboard-layout';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { setStaticEventById } from '../../store/events/list-slice';
+import Loader from '../../components/UI/loader';
+import moment from 'moment';
+import 'moment-timezone';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
-const locales = {
-  'en-US': require('date-fns/locale/en-US'),
-};
-const localizer = dateFnsLocalizer({
-  format,
-  parse,
-  startOfWeek,
-  getDay,
-  locales,
-});
+moment.tz.setDefault('Africa/Tunis');
 
-const events = [
-  {
-    title: 'Big Meeting',
-    allDay: true,
-    start: new Date(2022, 6, 0),
-    end: new Date(2022, 6, 0),
-  },
-  {
-    title: 'Vacation',
-    start: new Date(2022, 6, 7),
-    end: new Date(2022, 6, 10),
-  },
-  {
-    title: 'Conference',
-    start: new Date(2022, 6, 20),
-    end: new Date(2022, 6, 23),
-  },
-];
+const localizer = momentLocalizer(moment);
+
 const FulCalendar = () => {
-  const [newEvent, setNewEvent] = useState({ title: '', start: '', end: '' });
-  const [allEvents, setAllEvents] = useState(events);
-  function handleAddEvent() {
-    setAllEvents([...allEvents, newEvent]);
-  }
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { staticEvents, loading, staticEventDetail } = useSelector(
+    (state) => state.eventList
+  );
 
+  const { event, loading: loadingEvent } = useSelector(
+    (state) => state.eventDetails
+  );
+
+  const { id } = useParams();
+
+  const handleChange = (value) => {
+    navigate(`/calendrier/${value}`);
+  };
+
+  useEffect(() => {
+    dispatch(setStaticEventById(id));
+  }, [dispatch, id]);
+
+  if ((loading, loadingEvent)) return <Loader />;
   return (
     <DashboardLayout>
-      <div id='topnavbar'>
+      <div id='topnavbar' className='d-flex justify-content-between'>
         <div className='topnav '>
           <div className='d-flex px-1 '>
             <Link to='/epreuves'>List des epreuves</Link>
-            <Link to='/calendrier'>Calendrier</Link>
+            <Link to='/calendrier/1'>Calendrier</Link>
+            <Link to='/admin-calendrier'>Admin-Calendrier</Link>
           </div>
         </div>
+        <h1 className='text-red-600'>{staticEventDetail?.codeModule}</h1>
+        <div className='shadow px-3 bg-white'>
+          <FormControl variant='standard' sx={{ m: 1, minWidth: 120 }}>
+            <InputLabel id='demo-simple-select-standard-label'>
+              Class
+            </InputLabel>
+            <Select
+              onChange={(event) => handleChange(event.target.value)}
+              label='Class'
+            >
+              {staticEvents.map((ev) => (
+                <MenuItem value={ev?.id} key={ev.id}>
+                  {ev?.codeModule}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </div>
       </div>
-      <div className='App'>
+      {/* <div className='App'>
         <input
           type='text'
           placeholder='Add Title'
@@ -79,15 +92,16 @@ const FulCalendar = () => {
         <button stlye={{ marginTop: '10px' }} onClick={handleAddEvent}>
           Add Event
         </button>
-      </div>
-      <Card className='shadow'>
+      </div> */}
+      <Card className='shadow mt-5'>
         <Card.Body>
           <Calendar
+            culture='fr'
             localizer={localizer}
-            events={allEvents}
+            events={staticEventDetail?.classes}
             startAccessor='start'
             endAccessor='end'
-            style={{ height: 500 }}
+            style={{ height: 900 }}
           />
         </Card.Body>
       </Card>

@@ -22,6 +22,14 @@ const columns = [
       sort: false,
     },
   },
+  {
+    name: '',
+    label: 'Code Module',
+    options: {
+      filter: true,
+      sort: false,
+    },
+  },
 ];
 
 const ModulesTable = () => {
