@@ -6,61 +6,27 @@ const HomePage = () => {
   return (
     <DashboardLayout>
       <Row className='g-6 mb-6'>
-        <Col xl={3} sm={6} className='col-12'>
+        <Col xl={4} sm={6} className='col-12'>
           <Card className=' shadow border-0'>
             <Card.Body>
               <Row>
                 <Col>
                   <span className='h6 font-semibold text-muted text-sm d-block mb-2'>
-                    Budget
-                  </span>{' '}
-                  <span className='h3 font-bold mb-0'>$750.90</span>{' '}
+                    Classes
+                  </span>
+                  <span className='h3 font-bold mb-0'>12</span>
                 </Col>
                 <div className='col-auto'>
                   <div className='icon icon-shape bg-tertiary text-white text-lg rounded-circle'>
-                    {' '}
-                    <i className='bi bi-credit-card' />{' '}
+                    <i className='bi bi-credit-card' />
                   </div>
                 </div>
               </Row>
               <div className='mt-2 mb-0 text-sm'>
-                {' '}
                 <span className='badge badge-pill bg-soft-success text-success me-2'>
-                  {' '}
                   <i className='bi bi-arrow-up me-1' />
-                  13%{' '}
-                </span>{' '}
-                <span className='text-nowrap text-xs text-muted'>
-                  Depuis le mois dernier
-                </span>{' '}
-              </div>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col xl={3} sm={6} md={12}>
-          <Card className=' shadow border-0'>
-            <Card.Body>
-              <Row>
-                <Col>
-                  <span className='h6 font-semibold text-muted text-sm d-block mb-2'>
-                    Nouveaux projets
-                  </span>{' '}
-                  <span className='h3 font-bold mb-0'>215</span>{' '}
-                </Col>
-                <div className='col-auto'>
-                  <div className='icon icon-shape bg-primary text-white text-lg rounded-circle'>
-                    {' '}
-                    <i className='bi bi-people' />{' '}
-                  </div>
-                </div>
-              </Row>
-              <div className='mt-2 mb-0 text-sm'>
-                {' '}
-                <span className='badge badge-pill bg-soft-success text-success me-2'>
-                  {' '}
-                  <i className='bi bi-arrow-up me-1' />
-                  30%{' '}
-                </span>{' '}
+                  13%
+                </span>
                 <span className='text-nowrap text-xs text-muted'>
                   Depuis le mois dernier
                 </span>
@@ -68,15 +34,43 @@ const HomePage = () => {
             </Card.Body>
           </Card>
         </Col>
-        <Col xl={3} sm={6} md={12}>
+        <Col xl={4} sm={6} md={12}>
           <Card className=' shadow border-0'>
             <Card.Body>
               <Row>
                 <Col>
                   <span className='h6 font-semibold text-muted text-sm d-block mb-2'>
-                    Heures totales
+                    élèves
                   </span>
-                  <span className='h3 font-bold mb-0'>1.400</span>
+                  <span className='h3 font-bold mb-0'>102</span>
+                </Col>
+                <div className='col-auto'>
+                  <div className='icon icon-shape bg-primary text-white text-lg rounded-circle'>
+                    <i className='bi bi-people' />
+                  </div>
+                </div>
+              </Row>
+              <div className='mt-2 mb-0 text-sm'>
+                <span className='badge badge-pill bg-soft-success text-success me-2'>
+                  <i className='bi bi-arrow-up me-1' />
+                  30%
+                </span>
+                <span className='text-nowrap text-xs text-muted'>
+                  Depuis le mois dernier
+                </span>
+              </div>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col xl={4} sm={6} md={12}>
+          <Card className=' shadow border-0'>
+            <Card.Body>
+              <Row>
+                <Col>
+                  <span className='h6 font-semibold text-muted text-sm d-block mb-2'>
+                    Surveillants
+                  </span>
+                  <span className='h3 font-bold mb-0'>10</span>
                 </Col>
                 <div className='col-auto'>
                   <div className='icon icon-shape bg-info text-white text-lg rounded-circle'>
@@ -96,26 +90,88 @@ const HomePage = () => {
             </Card.Body>
           </Card>
         </Col>
-        <Col xl={3} sm={6} md={12}>
+      </Row>
+      <Row className='g-6 mb-6'>
+        <Col xl={4} sm={6} className='col-12'>
           <Card className=' shadow border-0'>
             <Card.Body>
-              <Row className='row'>
-                <Col className='col'>
+              <Row>
+                <Col>
                   <span className='h6 font-semibold text-muted text-sm d-block mb-2'>
-                    Charge de travail
-                  </span>
-                  <span className='h3 font-bold mb-0'>95%</span>
+                    Nombre de Colis
+                  </span>{' '}
+                  <span className='h3 font-bold mb-0'>25</span>
                 </Col>
                 <div className='col-auto'>
-                  <div className='icon icon-shape bg-warning text-white text-lg rounded-circle'>
-                    <i className='bi bi-minecart-loaded' />
+                  <div className='icon icon-shape bg-tertiary text-white text-lg rounded-circle'>
+                    <i className='bi bi-archive'></i>
                   </div>
                 </div>
               </Row>
               <div className='mt-2 mb-0 text-sm'>
+                {' '}
                 <span className='badge badge-pill bg-soft-success text-success me-2'>
+                  {' '}
                   <i className='bi bi-arrow-up me-1' />
-                  10%
+                  13%{' '}
+                </span>{' '}
+                <span className='text-nowrap text-xs text-muted'>
+                  Depuis le mois dernier
+                </span>{' '}
+              </div>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col xl={4} sm={6} md={12}>
+          <Card className=' shadow border-0'>
+            <Card.Body>
+              <Row>
+                <Col>
+                  <span className='h6 font-semibold text-muted text-sm d-block mb-2'>
+                    Nombre de Lettre
+                  </span>
+                  <span className='h3 font-bold mb-0'>32</span>
+                </Col>
+                <div className='col-auto'>
+                  <div className='icon icon-shape bg-primary text-white text-lg rounded-circle'>
+                    <i className='bi bi-envelope'></i>
+                  </div>
+                </div>
+              </Row>
+              <div className='mt-2 mb-0 text-sm'>
+                {' '}
+                <span className='badge badge-pill bg-soft-success text-success me-2'>
+                  {' '}
+                  <i className='bi bi-arrow-up me-1' />
+                  30%{' '}
+                </span>{' '}
+                <span className='text-nowrap text-xs text-muted'>
+                  Depuis le mois dernier
+                </span>
+              </div>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col xl={4} sm={6} md={12}>
+          <Card className=' shadow border-0'>
+            <Card.Body>
+              <Row>
+                <Col>
+                  <span className='h6 font-semibold text-muted text-sm d-block mb-2'>
+                    Nombre d'envoi par Rapide-poste
+                  </span>
+                  <span className='h3 font-bold mb-0'>37</span>
+                </Col>
+                <div className='col-auto'>
+                  <div className='icon icon-shape bg-info text-white text-lg rounded-circle'>
+                    <i className='bi bi-truck'></i>
+                  </div>
+                </div>
+              </Row>
+              <div className='mt-2 mb-0 text-sm'>
+                <span className='badge badge-pill bg-soft-danger text-danger me-2'>
+                  <i className='bi bi-arrow-down me-1' />
+                  -5%
                 </span>
                 <span className='text-nowrap text-xs text-muted'>
                   Depuis le mois dernier
@@ -125,17 +181,6 @@ const HomePage = () => {
           </Card>
         </Col>
       </Row>
-      <Card className=' shadow border-0 mb-7  '>
-        <Card.Header>
-          <h5 className='mb-0 text-dark'>Applications</h5>
-        </Card.Header>
-
-        <div className='card-footer border-0 py-5'>
-          <span className=' text-sm'>
-            Affichage de 10 éléments sur 250 résultats trouvés
-          </span>
-        </div>
-      </Card>
     </DashboardLayout>
   );
 };

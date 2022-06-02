@@ -36,17 +36,16 @@ const Sidebar = () => {
         >
           <span className='navbar-toggler-icon' />
         </Button>
-        <Link
-          className='navbar-brand py-lg-2 mb-lg-5 px-lg-6 me-0 d-flex align-items-center'
-          to='/'
-        >
-          <Image
-            fluid
-            src='/images/logo.png'
-            alt='logo'
-            style={{ height: '50px' }}
-          />
-        </Link>
+        <Navbar.Brand className=' py-lg-2 mb-lg-5 px-lg-6 me-0 d-flex align-items-center'>
+          <Link to='/'>
+            <Image
+              fluid
+              src='/images/logo.png'
+              alt='logo'
+              style={{ height: '50px' }}
+            />
+          </Link>
+        </Navbar.Brand>
         <div className='navbar-user d-lg-none'>
           <div className='dropdown'>
             <Link
@@ -73,15 +72,12 @@ const Sidebar = () => {
               <Link to='/' className='dropdown-item'>
                 Profile
               </Link>
-              <Link to='#' className='dropdown-item'>
-                Paramètres
-              </Link>
             </div>
-          </div>{' '}
+          </div>
           <Link to='#' className='dropdown-item'>
             Facturation
           </Link>
-          <hr className='dropdown-divider' />{' '}
+          <hr className='dropdown-divider' />
           <button className='dropdown-item'>Se déconnecter</button>
         </div>
 
@@ -145,11 +141,9 @@ const Sidebar = () => {
           <div className='' />
           <ul className='navbar-nav'>
             <li className='nav-item'>
-              <Link to='/stages/profile'>
-                <Nav.Link>
-                  <i className='bi bi-person-square' /> Mon Compte
-                </Nav.Link>
-              </Link>
+              <Nav.Link>
+                <i className='bi bi-person-square' /> Mon Compte
+              </Nav.Link>
             </li>
             <li className='nav-item'>
               <Nav.Link onClick={() => dispatch(onLogout)}>

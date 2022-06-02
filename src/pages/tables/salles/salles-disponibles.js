@@ -7,7 +7,6 @@ import Loader from '../../../components/UI/loader';
 import { getDispoSalles } from '../../../store/salles/dispoSalles-list';
 import DispoSallesColumn from '../../../components/columns/dispoSalles-column';
 import { Link } from 'react-router-dom';
-import { FaSearch } from 'react-icons/fa';
 
 const SallesDisponibles = () => {
   const loading = null;
@@ -16,7 +15,6 @@ const SallesDisponibles = () => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   useEffect(() => {
     dispatch(getDispoSalles());

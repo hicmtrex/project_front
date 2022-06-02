@@ -43,6 +43,10 @@ const eventListSlice = createSlice({
         (v) => v.id == action.payload
       );
     },
+    addEvent: (state, action) => {
+      const event = action.payload;
+      state.staticEvents = [...state.staticEvents, { ...event }];
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -59,5 +63,6 @@ const eventListSlice = createSlice({
       });
   },
 });
-export const { saveEvent, setStaticEventById } = eventListSlice.actions;
+export const { saveEvent, setStaticEventById, addEvent } =
+  eventListSlice.actions;
 export default eventListSlice;

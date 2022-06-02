@@ -1,6 +1,4 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
-import { FaTrash } from 'react-icons/fa';
 
 const DispoSurveColumn = ({ salle }) => {
   return (

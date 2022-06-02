@@ -11,8 +11,6 @@ const PlanificationTable = () => {
     (state) => state.planificationSList
   );
   const [toggleModule, setToggleModule] = useState(false);
-  const [toggleSeance, setToggleSeance] = useState(false);
-  const [editA, setEditA] = useState(true);
   const [editB, setEditB] = useState(true);
 
   useEffect(() => {

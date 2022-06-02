@@ -3,20 +3,16 @@ import DashboardLayout from '../../../components/layouts/dashboard-layout';
 import { Card, Table, Button, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import DepartmentForm from '../../../components/forms/department-form';
-import Loader from '../../../components/UI/loader';
 import { getDispoSalles } from '../../../store/salles/dispoSalles-list';
-
 import DispoSurveColumn from '../../../components/columns/dispoSurve-column';
 import { Link } from 'react-router-dom';
 
 const SurveillantDisponible = () => {
-  const loading = null;
   const { dispoSalles } = useSelector((state) => state.dispoSalles);
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   const navItems = [
     {

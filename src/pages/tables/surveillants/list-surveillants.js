@@ -4,7 +4,6 @@ import MUIDataTable from 'mui-datatables';
 import Loader from '../../../components/UI/loader';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getAllSalles } from '../../../store/salles/list-slice';
 import { getSurveillantsList } from '../../../store/surveillants/list-slice';
 
 const ListSurveillants = () => {

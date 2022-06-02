@@ -19,7 +19,6 @@ const DepartmentTable = () => {
   const [showEdit, setShowEdit] = useState(false);
   const [currentId, setCurrentId] = useState(null);
 
-  const handleCloseEdit = () => setShowEdit(false);
   const handleShowEdit = (id) => {
     setCurrentId(id);
     setShowEdit(true);

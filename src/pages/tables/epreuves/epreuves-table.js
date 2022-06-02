@@ -17,7 +17,7 @@ import { getSeanceList } from '../../../store/seance/list-seance';
 import { getSurveillantsList } from '../../../store/surveillants/list-slice';
 import EpreuveForm from '../../../components/forms/epreuve-form';
 import { getModulesList } from '../../../store/modules/list-slice';
-import { saveEvent } from '../../../store/events/list-slice';
+import { addEvent, saveEvent } from '../../../store/events/list-slice';
 import { staticEvnts } from '../../calendar/events';
 
 const EpreuvesTable = () => {
@@ -38,12 +38,17 @@ const EpreuvesTable = () => {
   const [formData, setFormData] = useState({
     codeSalle1: '',
     codeSalle2: '',
-    IdSeance: '',
+    idSeance: 1,
     surv11: '',
     surv12: '',
     surv21: '',
     surv22: '',
   });
+
+  const getDesignation = (value) => {
+    const code = modules.find((m) => m.codeModule === value);
+    return code;
+  };
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -54,17 +59,47 @@ const EpreuvesTable = () => {
 
   const onAdd = (id, index) => {
     dispatch(saveEvent(staticEvnts));
+    const code = getDesignation(epreuves[index].codeModule);
+
+    const newEvent = {
+      id: Math.floor(Math.random() * 50),
+      codeModule: epreuves[index].codeModule,
+
+      classes: [
+        {
+          title: code.designation,
+          start: '2022-06-12T07:15:04.032+00:00',
+          end: '2022-06-12T07:15:04.032+00:00',
+        },
+        {
+          title: code.designation,
+          start: '2022-06-05T09:30:04.032+00:00',
+          end: '2022-06-05T09:30:04.032+00:00',
+        },
+        {
+          title: code.designation,
+          start: '2022-06-05T11:45:04.032+00:00',
+          end: '2022-06-05T11:45:04.032+00:00',
+        },
+        {
+          title: code.designation,
+          start: '2022-06-05T14:00:04.032+00:00',
+          end: '2022-06-05T14:00:04.032+00:00',
+        },
+      ],
+    };
+    dispatch(addEvent(newEvent));
     myAxios
       .put(`cexEpreuves/${id}`, {
         codeCl: epreuves[index].codeCl,
         codeModule: epreuves[index].codeModule,
         dsex: epreuves[index].dsex,
-        idSession: epreuves[index].idSession,
         typeEpreuve: epreuves[index].typeEpreuve,
         anneeDeb: epreuves[index].anneeDeb,
         anneeFin: epreuves[index].anneeFin,
         codeSalle1: formData.codeSalle1,
         codeSalle2: formData.codeSalle2,
+        idSeance: formData.idSeance,
         surv11: formData.surv11,
         surv12: formData.surv12,
         surv21: formData.surv21,
@@ -156,13 +191,24 @@ const EpreuvesTable = () => {
         sort: false,
         customBodyRender: (value, tableMeta, updateValue) => {
           return (
-            <select className=' rounded' name='codeSalle1' onChange={onChange}>
-              {salles.map((salle) => (
-                <option value={salle?.id} key={salle?.id}>
-                  {salle?.id}
-                </option>
-              ))}
-            </select>
+            <>
+              {epreuves[tableMeta.rowIndex]?.codeSalle1 ? (
+                epreuves[tableMeta.rowIndex]?.codeSalle1
+              ) : (
+                <select
+                  className=' rounded'
+                  name='codeSalle1'
+                  onChange={onChange}
+                >
+                  <option value={''}></option>
+                  {salles.map((salle) => (
+                    <option value={salle?.id} key={salle?.id}>
+                      {salle?.id}
+                    </option>
+                  ))}
+                </select>
+              )}
+            </>
           );
         },
       },
@@ -174,17 +220,29 @@ const EpreuvesTable = () => {
         sort: false,
         customBodyRender: (value, tableMeta, updateValue) => {
           return (
-            <select className=' rounded' name='codeSalle2' onChange={onChange}>
-              {salles.map((salle) => (
-                <option value={salle?.id} key={salle?.id}>
-                  {salle?.id}
-                </option>
-              ))}
-            </select>
+            <>
+              {epreuves[tableMeta.rowIndex]?.codeSalle2 ? (
+                epreuves[tableMeta.rowIndex]?.codeSalle2
+              ) : (
+                <select
+                  className=' rounded'
+                  name='codeSalle2'
+                  onChange={onChange}
+                >
+                  <option value={''}></option>
+                  {salles.map((salle) => (
+                    <option value={salle?.id} key={salle?.id}>
+                      {salle?.id}
+                    </option>
+                  ))}
+                </select>
+              )}
+            </>
           );
         },
       },
     },
+
     {
       name: 'IdSeance',
       options: {
@@ -192,19 +250,29 @@ const EpreuvesTable = () => {
         sort: false,
         customBodyRender: (value, tableMeta, updateValue) => {
           return (
-            <select className=' rounded' name='IdSeance' onChange={onChange}>
-              {seances.map((seance) => (
-                <option value={seance?.idSeance} key={seance?.idSeance}>
-                  {seance?.idSeance}
-                </option>
-              ))}
-
-              <option value=''>1</option>
-            </select>
+            <>
+              {epreuves[tableMeta.rowIndex]?.idSeance ? (
+                epreuves[tableMeta.rowIndex]?.idSeance
+              ) : (
+                <select
+                  className=' rounded'
+                  name='idSeance'
+                  onChange={onChange}
+                >
+                  <option value={''}></option>
+                  {seances.map((seance) => (
+                    <option value={seance?.idSeance} key={seance?.idSeance}>
+                      {seance?.idSeance}
+                    </option>
+                  ))}
+                </select>
+              )}
+            </>
           );
         },
       },
     },
+
     {
       name: 'idSession',
       label: 'idSession',
@@ -220,16 +288,23 @@ const EpreuvesTable = () => {
         sort: false,
         customBodyRender: (value, tableMeta, updateValue) => {
           return (
-            <select className=' rounded' name='surv11' onChange={onChange}>
-              {surveillants.map((surveillant) => (
-                <option
-                  value={surveillant?.chefDept}
-                  key={surveillant?.chefDept}
-                >
-                  {surveillant?.chefDept}
-                </option>
-              ))}
-            </select>
+            <>
+              {epreuves[tableMeta.rowIndex]?.surv11 ? (
+                epreuves[tableMeta.rowIndex]?.surv11
+              ) : (
+                <select className=' rounded' name='surv11' onChange={onChange}>
+                  <option value={''}></option>
+                  {surveillants.map((surveillant) => (
+                    <option
+                      value={surveillant?.chefDept}
+                      key={surveillant?.chefDept}
+                    >
+                      {surveillant?.chefDept}
+                    </option>
+                  ))}
+                </select>
+              )}
+            </>
           );
         },
       },
@@ -241,16 +316,23 @@ const EpreuvesTable = () => {
         sort: false,
         customBodyRender: (value, tableMeta, updateValue) => {
           return (
-            <select className=' rounded' name='surv12' onChange={onChange}>
-              {surveillants.map((surveillant) => (
-                <option
-                  value={surveillant?.chefDept}
-                  key={surveillant?.chefDept}
-                >
-                  {surveillant?.chefDept}
-                </option>
-              ))}
-            </select>
+            <>
+              {epreuves[tableMeta.rowIndex]?.surv12 ? (
+                epreuves[tableMeta.rowIndex]?.surv12
+              ) : (
+                <select className=' rounded' name='surv12' onChange={onChange}>
+                  <option value={''}></option>
+                  {surveillants.map((surveillant) => (
+                    <option
+                      value={surveillant?.chefDept}
+                      key={surveillant?.chefDept}
+                    >
+                      {surveillant?.chefDept}
+                    </option>
+                  ))}
+                </select>
+              )}
+            </>
           );
         },
       },
@@ -262,16 +344,23 @@ const EpreuvesTable = () => {
         sort: false,
         customBodyRender: (value, tableMeta, updateValue) => {
           return (
-            <select className=' rounded' name='surv21' onChange={onChange}>
-              {surveillants.map((surveillant) => (
-                <option
-                  value={surveillant?.chefDept}
-                  key={surveillant?.chefDept}
-                >
-                  {surveillant?.chefDept}
-                </option>
-              ))}
-            </select>
+            <>
+              {epreuves[tableMeta.rowIndex]?.surv21 ? (
+                epreuves[tableMeta.rowIndex]?.surv21
+              ) : (
+                <select className=' rounded' name='surv21' onChange={onChange}>
+                  <option value={''}></option>
+                  {surveillants.map((surveillant) => (
+                    <option
+                      value={surveillant?.chefDept}
+                      key={surveillant?.chefDept}
+                    >
+                      {surveillant?.chefDept}
+                    </option>
+                  ))}
+                </select>
+              )}
+            </>
           );
         },
       },
@@ -283,16 +372,23 @@ const EpreuvesTable = () => {
         sort: false,
         customBodyRender: (value, tableMeta, updateValue) => {
           return (
-            <select className=' rounded' name='surv22' onChange={onChange}>
-              {surveillants.map((surveillant) => (
-                <option
-                  value={surveillant?.chefDept}
-                  key={surveillant?.chefDept}
-                >
-                  {surveillant?.chefDept}
-                </option>
-              ))}
-            </select>
+            <>
+              {epreuves[tableMeta.rowIndex]?.surv22 ? (
+                epreuves[tableMeta.rowIndex]?.surv22
+              ) : (
+                <select className=' rounded' name='surv22' onChange={onChange}>
+                  <option value={''}></option>
+                  {surveillants.map((surveillant) => (
+                    <option
+                      value={surveillant?.chefDept}
+                      key={surveillant?.chefDept}
+                    >
+                      {surveillant?.chefDept}
+                    </option>
+                  ))}
+                </select>
+              )}
+            </>
           );
         },
       },

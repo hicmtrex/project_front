@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import MUIDataTable from 'mui-datatables';
 import { getAllClasses } from '../../../store/classes/list-slice';
 import Loader from '../../../components/UI/loader';
-import { Container } from 'react-bootstrap';
 
 const ClassesTable = () => {
   const dispatch = useDispatch();
