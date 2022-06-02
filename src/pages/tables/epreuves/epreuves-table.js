@@ -50,6 +50,11 @@ const EpreuvesTable = () => {
     return code;
   };
 
+  const getSeance = (value) => {
+    const seance = seances.find((m) => m.idSeance == value);
+    return seance;
+  };
+
   const onChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -58,8 +63,9 @@ const EpreuvesTable = () => {
   };
 
   const onAdd = (id, index) => {
-    dispatch(saveEvent(staticEvnts));
+    // dispatch(saveEvent(staticEvnts));
     const code = getDesignation(epreuves[index].codeModule);
+    const seance = getSeance(epreuves[index].idSeance);
 
     const newEvent = {
       id: Math.floor(Math.random() * 50),
@@ -68,23 +74,14 @@ const EpreuvesTable = () => {
       classes: [
         {
           title: code.designation,
-          start: '2022-06-12T07:15:04.032+00:00',
-          end: '2022-06-12T07:15:04.032+00:00',
-        },
-        {
-          title: code.designation,
-          start: '2022-06-05T09:30:04.032+00:00',
-          end: '2022-06-05T09:30:04.032+00:00',
-        },
-        {
-          title: code.designation,
-          start: '2022-06-05T11:45:04.032+00:00',
-          end: '2022-06-05T11:45:04.032+00:00',
-        },
-        {
-          title: code.designation,
-          start: '2022-06-05T14:00:04.032+00:00',
-          end: '2022-06-05T14:00:04.032+00:00',
+          start: `${seance?.dateSeance.substring(
+            0,
+            10
+          )}${seance?.hDeb.substring(10, 20)}`,
+          end: `${seance?.dateSeance.substring(0, 10)}${seance?.hDeb.substring(
+            10,
+            29
+          )}`,
         },
       ],
     };
