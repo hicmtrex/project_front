@@ -42,7 +42,7 @@ Full tech stack [here](/techstack.md)
 # Tech Stack File
 ![](https://img.stackshare.io/repo.svg "repo") [hicmtrex/project_front](https://github.com/hicmtrex/project_front)![](https://img.stackshare.io/public_badge.svg "public")
 <br/><br/>
-|26<br/>Tools used|12/21/23 <br/>Report generated|
+|27<br/>Tools used|01/05/24 <br/>Report generated|
 |------|------|
 </div>
 
@@ -184,9 +184,9 @@ Full tech stack [here](/techstack.md)
 </table>
 
 
-## <img src='https://img.stackshare.io/group.svg' /> Open source packages (12)</h2>
+## <img src='https://img.stackshare.io/group.svg' /> Open source packages (13)</h2>
 
-## <img width='24' height='24' src='https://img.stackshare.io/service/1120/lejvzrnlpb308aftn31u.png'/> npm (12)
+## <img width='24' height='24' src='https://img.stackshare.io/service/1120/lejvzrnlpb308aftn31u.png'/> npm (13)
 
 |NAME|VERSION|LAST UPDATED|LAST UPDATED BY|LICENSE|VULNERABILITIES|
 |:------|:------|:------|:------|:------|:------|
@@ -202,6 +202,7 @@ Full tech stack [here](/techstack.md)
 |[react-redux](https://www.npmjs.com/react-redux)|v8.0.1|05/24/22|Firstname Lastname |MIT|N/A|
 |[react-router-dom](https://www.npmjs.com/react-router-dom)|v6.3.0|05/24/22|Firstname Lastname |MIT|N/A|
 |[react-scripts](https://www.npmjs.com/react-scripts)|v5.0.1|05/24/22|Firstname Lastname |MIT|N/A|
+|[yup](https://www.npmjs.com/yup)|v0.32.11|05/04/22|Firstname Lastname |MIT|N/A|
 
 <br/>
 <div align='center'>
